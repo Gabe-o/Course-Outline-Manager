@@ -1,9 +1,11 @@
 import axios from "axios";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import { useState } from "react";
 function App() {
 
   const [test, setTest] = useState("orignal");
-  axios.get('http://localhost:9000/test')
+  axios.get('/test')
     .then(function (response) {
       console.log("Entered");
       setTest(response.data)
@@ -13,9 +15,14 @@ function App() {
     });
 
   return (
-    <div>
-      <h1>{test}</h1>
-    </div>
+    <BrowserRouter>
+      <div>
+        <h1>{test}</h1>
+      </div>
+      <Routes>
+
+      </Routes>
+    </BrowserRouter>
   );
 }
 
