@@ -35,6 +35,7 @@ outlineRouter.get("", (req, res) => {
         })
 });
 
+// Add a new outline
 outlineRouter.post("", (req, res) => {
     db.query(`INSERT INTO outline (outlineID, dateApproved, status, courseID, term) VALUES (?, ?, ?, ?, ?);`,
         [
@@ -54,6 +55,7 @@ outlineRouter.post("", (req, res) => {
         })
 });
 
+// Update outline with given id
 outlineRouter.post("/:id", (req, res) => {
     db.query(`UPDATE outline SET dateApproved=?, status=? WHERE outlineID=?;`,
         [
