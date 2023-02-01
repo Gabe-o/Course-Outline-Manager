@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/buttons.css";
+import "../styles/textbox.css";
 
 const Textbox = ({ defaultValue }) => {
     const [value, setValue] = useState(defaultValue);

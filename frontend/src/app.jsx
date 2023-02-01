@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
+import CreateOutline from "./pages/createOutline";
+
 function App() {
 
   const [test, setTest] = useState("orignal");
@@ -14,7 +16,7 @@ function App() {
 
   return (
     <div>
-      <h1>{test}</h1>
+      <CreateOutline></CreateOutline>
     </div>
   );
 }
