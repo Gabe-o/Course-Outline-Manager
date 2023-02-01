@@ -1,7 +1,7 @@
 import { React } from "react";
 import Textbox from "../components/textbox";
 import Counter from "../components/counter";
-import CreditsRadioButton from "../components/creditsRadioButton";
+import Switch from "../components/creditsSwitch";
 
 const CreateOutline = () => {
 
@@ -29,7 +29,7 @@ const CreateOutline = () => {
             <h3>Tutorial Hours</h3>
             <Counter></Counter>
             <h3>Credits</h3>
-            <CreditsRadioButton></CreditsRadioButton>
+            <Switch></Switch>
             <h1>Antirequisite</h1>
             <Textbox></Textbox>
             <h1>Prerequisites</h1>

@@ -1,0 +1,22 @@
+.value-button {
+    padding: 10px 20px;
+    background-color: lightgray;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.value-button:hover {
+    background-color: gray;
+}
+
+.glow {
+    background-color: yellow;
+}
+
+.selected-value {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
