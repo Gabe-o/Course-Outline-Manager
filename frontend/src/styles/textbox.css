@@ -1,0 +1,68 @@
+.edit {
+    background-color: orangered;
+    color: white;
+    border: 1px solid orangered;
+    height: 50px;
+    width: 125px;
+    font-weight: bold;
+    font-size: 20px;
+    transition: background-color 0.2s ease-in;
+    background-image: url('../images/edit.png');
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 20px;
+    padding-left: 40px;
+    cursor: pointer;
+    border-radius: 20%;
+}
+
+.edit:hover {
+    background-color: orange;
+    border: 1px solid orange;
+}
+
+.cancel {
+    background-color: red;
+    color: white;
+    border: 1px solid red;
+    height: 50px;
+    width: 125px;
+    font-weight: bold;
+    font-size: 20px;
+    transition: background-color 0.2s ease-in;
+    background-image: url('../images/cancel.png');
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 20px;
+    padding-left: 40px;
+    cursor: pointer;
+    border-radius: 20%;
+}
+
+.cancel:hover {
+    background-color: pink;
+    border: 1px solid pink;
+}
+
+.save {
+    background-color: green;
+    color: white;
+    border: 1px solid green;
+    height: 50px;
+    width: 125px;
+    font-weight: bold;
+    font-size: 20px;
+    transition: background-color 0.2s ease-in;
+    background-image: url('../images/save.png');
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 20px;
+    padding-left: 40px;
+    cursor: pointer;
+    border-radius: 20%;
+}
+
+.save:hover {
+    background-color: lightgreen;
+    border: 1px solid lightgreen;
+}

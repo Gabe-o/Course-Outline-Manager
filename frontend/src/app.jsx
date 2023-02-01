@@ -2,6 +2,8 @@ import axios from "axios";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { useState } from "react";
+import CreateOutline from "./pages/createOutline";
+
 function App() {
 
   const [test, setTest] = useState("orignal");
@@ -18,6 +20,9 @@ function App() {
     <BrowserRouter>
       <div>
         <h1>{test}</h1>
+      </div>
+      <div>
+      <CreateOutline></CreateOutline>
       </div>
       <Routes>
 
