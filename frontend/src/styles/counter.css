@@ -1,0 +1,26 @@
+.counter-button {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    line-height: 40px;
+    vertical-align: middle;
+    background-color: grey;
+}
+
+.counter-button:hover {
+    background-color: lightgray;
+}
+
+.counter-value {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 40px;
+    vertical-align: middle;
+    background-color: grey;
+}
