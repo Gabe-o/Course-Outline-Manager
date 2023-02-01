@@ -2,6 +2,7 @@ import { React } from "react";
 import Textbox from "../components/textbox";
 import Counter from "../components/counter";
 import Switch from "../components/creditsSwitch";
+import LearningObjectivesDropdown from "../components/learningObjectivesDropdown";
 
 const CreateOutline = () => {
 
@@ -38,7 +39,9 @@ const CreateOutline = () => {
             <Textbox></Textbox>
             <h1>CEAB Academic Units</h1>
             <h3>Engineering Science %</h3>
+            <Textbox></Textbox>
             <h3>Engineering Design %</h3>
+            <Textbox></Textbox>
             <h1>Required Textbook</h1>
             <Textbox></Textbox>
             <h1>Other Required References</h1>
@@ -46,18 +49,31 @@ const CreateOutline = () => {
             <h1>Recommended References</h1>
             <Textbox></Textbox>
             <h1>General Learning Objectives (CEAB Graduate Attributes)</h1>
+            <p>I is introductory, D is intermediate, A is advanced and X is empty</p>
             <h3>Knowledge Base</h3>
+            <LearningObjectivesDropdown></LearningObjectivesDropdown>
             <h3>Use of Engineering Tools</h3>
+            <LearningObjectivesDropdown></LearningObjectivesDropdown>
             <h3>Impact on Society and the Environment</h3>
+            <LearningObjectivesDropdown></LearningObjectivesDropdown>
             <h3>Problem Analysis</h3>
+            <LearningObjectivesDropdown></LearningObjectivesDropdown>
             <h3>Individual and Team Work</h3>
+            <LearningObjectivesDropdown></LearningObjectivesDropdown>
             <h3>Ethics and Equity</h3>
+            <LearningObjectivesDropdown></LearningObjectivesDropdown>
             <h3>Investigation</h3>
+            <LearningObjectivesDropdown></LearningObjectivesDropdown>
             <h3>Communication Skills</h3>
+            <LearningObjectivesDropdown></LearningObjectivesDropdown>
             <h3>Economics and Project Management</h3>
+            <LearningObjectivesDropdown></LearningObjectivesDropdown>
             <h3>Design</h3>
+            <LearningObjectivesDropdown></LearningObjectivesDropdown>
             <h3>Professionalism</h3>
+            <LearningObjectivesDropdown></LearningObjectivesDropdown>
             <h3>Life-Long Learning</h3>
+            <LearningObjectivesDropdown></LearningObjectivesDropdown>
             <h1>Topics</h1>
             <h1>Evaluation</h1>
             <h3>Course Components, Weights, Descriptions</h3>
