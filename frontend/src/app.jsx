@@ -1,11 +1,13 @@
 import axios from "axios";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import { useState } from "react";
 import CreateOutline from "./pages/createOutline";
 
 function App() {
 
   const [test, setTest] = useState("orignal");
-  axios.get('http://localhost:9000/test')
+  axios.get('/test')
     .then(function (response) {
       console.log("Entered");
       setTest(response.data)
@@ -15,9 +17,17 @@ function App() {
     });
 
   return (
-    <div>
+    <BrowserRouter>
+      <div>
+        <h1>{test}</h1>
+      </div>
+      <div>
       <CreateOutline></CreateOutline>
-    </div>
+      </div>
+      <Routes>
+
+      </Routes>
+    </BrowserRouter>
   );
 }
 
