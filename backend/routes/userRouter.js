@@ -13,7 +13,7 @@ userRouter.post("", (req, res) => {
             req.body.reviewer
         ],
         (err, data) => {
-            if (err != null) {
+            if (err) {
                 res.json(err);
             }
             else {
@@ -25,7 +25,7 @@ userRouter.post("", (req, res) => {
 // Gets user information with the given username
 userRouter.get("/:id", (req, res) => {
     db.query("SELECT * FROM user WHERE userID=?;", [req.params.userID], (err, data) => {
-        if (err != null) {
+        if (err) {
             res.json(err);
         }
         else {
