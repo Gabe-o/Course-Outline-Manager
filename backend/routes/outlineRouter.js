@@ -37,9 +37,8 @@ outlineRouter.get("", (req, res) => {
 
 // Add a new outline
 outlineRouter.post("", (req, res) => {
-    db.query(`INSERT INTO outline (outlineID, dateApproved, status, courseID, term) VALUES (?, ?, ?, ?, ?);`,
+    db.query(`INSERT INTO outline (dateApproved, status, courseID, term) VALUES (?, ?, ?, ?);`,
         [
-            req.body.outlineID,
             req.body.dateApproved,
             req.body.status,
             req.body.courseID,
