@@ -6,7 +6,7 @@ const Login = () => {
         <form>
             <input type="email" placeholder='UWO Email'></input>
             <input type='password' placeholder='UWO Password'></input>
-            <button>Login</button>
+            <button>Login</button> <br></br>
             <button>Don't have a registered UWO account? Sign up.</button>
         </form>
     </div>);
