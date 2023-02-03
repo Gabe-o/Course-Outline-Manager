@@ -3,6 +3,7 @@ const db = require('../DBConnect.js');
 
 const courseRouter = express.Router();
 
+// Add a course to db
 courseRouter.post("", (req, res) => {
     db.query(`INSERT INTO course (courseID, courseName, courseReviewer) VALUES (?, ?, ?);`,
         [
@@ -20,6 +21,7 @@ courseRouter.post("", (req, res) => {
         })
 });
 
+// Get a course from db by ID
 courseRouter.get("/:courseID", (req, res) => {
     db.query(`SELECT * FROM course WHERE courseID=?`, [req.params.courseID], (err, data) => {
         if (err) {
