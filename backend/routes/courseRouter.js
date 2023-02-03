@@ -25,6 +25,9 @@ courseRouter.get("/:courseID", (req, res) => {
         if (err) {
             res.status(400).json(err);
         }
+        else if (data.length === 0) {
+            res.status(404).json("courseID: '" + req.params.courseID + "' not found");
+        }
         else {
             res.json(data);
         }
