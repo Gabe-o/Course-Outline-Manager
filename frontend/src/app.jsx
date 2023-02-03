@@ -3,15 +3,15 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import CreateOutline from "./pages/createOutline";
 import Login from "./pages/login";
+import Register from "./pages/register";
 
 function App() {
   return (
     <BrowserRouter>
-      <div>
-        <Login></Login>
-      </div>
       <Routes>
-        <Route path="/editoutline" element={<div><CreateOutline /><CreateOutline /></div>} />
+        <Route path="" element={<div><Login /></div>} />
+        <Route path="/register" element={<div><Register /></div>} />
+        <Route path="/editoutline" element={<div><CreateOutline /></div>} />
       </Routes>
     </BrowserRouter>
   );
