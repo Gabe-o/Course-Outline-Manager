@@ -5,6 +5,7 @@ const userRouter = express.Router();
 
 // Adds that given user to db
 userRouter.post("", (req, res) => {
+    // For preventing user creation without a role
     if (req.body.admin || req.body.instructor || req.body.reviewer) {
         db.query("INSERT INTO user VALUES (?, ?, ?, ?);",
             [
@@ -28,10 +29,13 @@ userRouter.post("", (req, res) => {
 });
 
 // Gets user information with the given username
-userRouter.get("/:id", (req, res) => {
+userRouter.get("/:userID", (req, res) => {
     db.query("SELECT * FROM user WHERE userID=?;", [req.params.userID], (err, data) => {
         if (err) {
-            res.json(err);
+            res.status(400).json(err);
+        }
+        else if (data.length === 0) {
+            res.status(404).json("userID: '" + req.params.userID + "' not found");
         }
         else {
             res.json(data);
