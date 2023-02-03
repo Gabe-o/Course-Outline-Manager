@@ -4,6 +4,7 @@ const cors = require("cors");
 const userRouter = require("./routes/userRouter");
 const outlineRouter = require("./routes/outlineRouter");
 const changeRouter = require('./routes/changeRouter');
+const userCourseRouter = require("./routes/userCourseRouter");
 
 const app = express();
 
@@ -19,11 +20,8 @@ app.use((req, res, next) => {
 // Routes
 app.use("/api/user", userRouter);
 app.use("/api/outline", outlineRouter);
-app.use("/api/change", changeRouter)
-
-app.get("/test", (req, res) => {
-    res.json("Got Request");
-});
+app.use("/api/change", changeRouter);
+app.use("/api/userCourse", userCourseRouter);
 
 app.listen(9000, () => {
     console.log("Listening on port 9000");
