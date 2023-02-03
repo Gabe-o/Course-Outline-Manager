@@ -1,5 +1,5 @@
 const sql = require('mysql2');
-const process = require('dotenv');
+require('dotenv').config();
 
 // Stores MySQL connection information
 var conn = sql.createConnection({
