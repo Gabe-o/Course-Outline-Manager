@@ -12,7 +12,7 @@ userCourseRouter.post("", (req, res) => {
         ],
         (err, data) => {
             if (err) {
-                res.json(err);
+                res.status(400).json(err);
             }
             else {
                 res.json(data);

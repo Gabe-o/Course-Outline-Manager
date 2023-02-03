@@ -3,36 +3,43 @@ const db = require('../DBConnect.js');
 
 const outlineRouter = express.Router();
 
-// Get all outlines
-outlineRouter.get("", (req, res) => {
-    db.query("SELECT * FROM outline;", (err, data) => {
-        if (err) {
-            res.json(err);
-        }
-        else {
-            res.json(data);
-        }
-    })
-});
-
 // Get outlines that match query
 outlineRouter.get("", (req, res) => {
-    db.query(`SELECT * 
-    FROM outline
-    JOIN user_outline_assignment ON userID=userID
-    WHERE userID LIKE ? AND courseID LIKE ?;`,
-        [
-            "%" + req.query.user + "%",
-            "%" + req.query.course + "%"
-        ],
-        (err, data) => {
+    // Get all outlines when query is undefined
+    if (!req.query.userID && !req.query.courseID) {
+        db.query("SELECT * FROM outline;", (err, data) => {
             if (err) {
-                res.json(err);
+                res.status(400).json(err);
             }
             else {
                 res.json(data);
             }
         })
+    }
+    // Get outlines by courseID or userID
+    else {
+        db.query(`SELECT * 
+        FROM outline 
+        LEFT JOIN user_course_assignment ON outline.courseID=user_course_assignment.courseID 
+        WHERE user_course_assignment.userID LIKE ? AND outline.courseID LIKE ?;`,
+            [
+                "%" + (req.query.userID != undefined ? req.query.userID : "") + "%",
+                "%" + (req.query.courseID != undefined ? req.query.courseID : "") + "%"
+            ],
+            (err, data) => {
+                if (err) {
+                    res.status(400).json(err);
+                }
+                else if (data.length === 0) {
+                    res.status(404).json("userID: '" + req.query.userID + "', courseID: '" + req.query.courseID + "' not found");
+                }
+                else {
+                    res.json(data);
+                }
+            })
+
+    }
+
 });
 
 // Add a new outline
@@ -46,7 +53,7 @@ outlineRouter.post("", (req, res) => {
         ],
         (err, data) => {
             if (err) {
-                res.json(err);
+                res.status(400).json(err);
             }
             else {
                 res.json(data);
@@ -64,7 +71,10 @@ outlineRouter.post("/:id", (req, res) => {
         ],
         (err, data) => {
             if (err) {
-                res.json(err);
+                res.status(400).json(err);
+            }
+            else if (data.info.includes("Rows matched: 0")) {
+                res.status(404).json("outlineID: '" + req.params.id + "' not found");
             }
             else {
                 res.json(data);

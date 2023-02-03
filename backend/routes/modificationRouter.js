@@ -1,11 +1,11 @@
 const express = require('express');
 const db = require('../DBConnect.js');
 
-const changeRouter = express.Router();
+const modificationRouter = express.Router();
 
 // Add a change to an outline in db
-changeRouter.post("", (req, res) => {
-    db.query(`INSERT INTO change (dateTime, section, content, comment, outlineID, authorID) VALUES (?, ?, ?, ?, ?, ?)`,
+modificationRouter.post("", (req, res) => {
+    db.query(`INSERT INTO modification (dateTime, section, content, comment, outlineID, authorID) VALUES (?, ?, ?, ?, ?, ?);`,
         [
             req.body.dateTime,
             req.body.section,
@@ -16,7 +16,7 @@ changeRouter.post("", (req, res) => {
         ],
         (err, data) => {
             if (err) {
-                res.json(err);
+                res.status(400).json(err);
             }
             else {
                 res.json(data);
@@ -25,14 +25,17 @@ changeRouter.post("", (req, res) => {
 });
 
 // Get all changes for an outline
-changeRouter.get("", (req, res) => {
-    db.query(`SELECT * FROM change WHERE outlineID=?`,
+modificationRouter.get("", (req, res) => {
+    db.query(`SELECT * FROM modification WHERE outlineID=?;`,
         [
             req.query.outlineID
         ],
         (err, data) => {
             if (err) {
-                res.json(err);
+                res.status(400).json(err);
+            }
+            else if (data.length === 0) {
+                res.status(404).json("outlineID: '" + req.query.outlineID + "' not found");
             }
             else {
                 res.json(data);
@@ -40,4 +43,4 @@ changeRouter.get("", (req, res) => {
         })
 });
 
-module.exports = changeRouter;
+module.exports = modificationRouter;
