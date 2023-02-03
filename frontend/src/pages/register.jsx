@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory, useNavigate } from "react-router-dom";
 
 const Register = () => {
     const [email, setEmail] = useState("");
@@ -6,6 +7,7 @@ const Register = () => {
     const [isInstructor, setIsInstructor] = useState(false);
     const [isAdministrator, setIsAdministrator] = useState(false);
     const [isReviewer, setIsReviewer] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -13,13 +15,17 @@ const Register = () => {
         console.log(email, password, isInstructor, isAdministrator, isReviewer);
     };
 
+    const handleLoginClick = () => {
+        navigate("/");
+    };
+
     return (
         <form onSubmit={handleSubmit}>
             <div>
                 <label htmlFor="email">UWO Email:</label>
                 <input
+                    className="email"
                     type="email"
-                    id="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
@@ -27,8 +33,8 @@ const Register = () => {
             <div>
                 <label htmlFor="password">UWO Password:</label>
                 <input
+                    className="password"
                     type="password"
-                    id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
@@ -60,7 +66,10 @@ const Register = () => {
                 />
                 <label htmlFor="reviewer">Reviewer</label>
             </div>
-            <button type="submit">Submit</button>
+            <button type="submit" onClick={handleSubmit}>Submit</button>
+            <button type="button" onClick={handleLoginClick}>
+                Already have an account? Login here
+            </button>
         </form>
     );
 };
