@@ -19,3 +19,5 @@ userCourseRouter.post("", (req, res) => {
             }
         })
 });
+
+module.exports = userCourseRouter;
