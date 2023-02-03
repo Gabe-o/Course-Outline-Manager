@@ -4,7 +4,6 @@ import Counter from "../components/counter";
 import CreditsRadioButton from "../components/creditsRadioButton";
 
 const CreateOutline = () => {
-
     return (
         <div>
             <h1>Description</h1>
