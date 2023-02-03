@@ -24,10 +24,10 @@ DROP TABLE IF EXISTS `approval`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `approval` (
   `approvalID` int NOT NULL AUTO_INCREMENT,
-  `status` varchar(60) DEFAULT NULL,
+  `status` varchar(60) NOT NULL,
   `comment` text,
-  `changeID` int DEFAULT NULL,
-  `authorID` varchar(20) DEFAULT NULL,
+  `changeID` int NOT NULL,
+  `authorID` varchar(20) NOT NULL,
   PRIMARY KEY (`approvalID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -42,34 +42,6 @@ LOCK TABLES `approval` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `change`
---
-
-DROP TABLE IF EXISTS `change`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `change` (
-  `changeID` int NOT NULL AUTO_INCREMENT,
-  `dateTime` datetime DEFAULT NULL,
-  `section` varchar(60) DEFAULT NULL,
-  `content` text,
-  `comment` text,
-  `outlineID` int DEFAULT NULL,
-  `authorID` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`changeID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `change`
---
-
-LOCK TABLES `change` WRITE;
-/*!40000 ALTER TABLE `change` DISABLE KEYS */;
-/*!40000 ALTER TABLE `change` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `course`
 --
 
@@ -78,9 +50,8 @@ DROP TABLE IF EXISTS `course`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `course` (
   `courseID` varchar(20) NOT NULL,
-  `courseName` varchar(60) DEFAULT NULL,
-  `courseReviewer` varchar(20) DEFAULT NULL,
-  `department` varchar(60) DEFAULT NULL,
+  `courseName` varchar(60) NOT NULL,
+  `courseReviewer` varchar(20) NOT NULL,
   PRIMARY KEY (`courseID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -91,30 +62,37 @@ CREATE TABLE `course` (
 
 LOCK TABLES `course` WRITE;
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
+INSERT INTO `course` VALUES ('SE3350','Software Engineering Design I','golivott');
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `department`
+-- Table structure for table `modification`
 --
 
-DROP TABLE IF EXISTS `department`;
+DROP TABLE IF EXISTS `modification`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `department` (
-  `departmentID` int NOT NULL AUTO_INCREMENT,
-  `departmentName` varchar(60) DEFAULT NULL,
-  PRIMARY KEY (`departmentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `modification` (
+  `modificationID` int NOT NULL AUTO_INCREMENT,
+  `dateTime` datetime NOT NULL,
+  `section` varchar(60) NOT NULL,
+  `content` text,
+  `comment` text,
+  `outlineID` int NOT NULL,
+  `authorID` varchar(20) NOT NULL,
+  PRIMARY KEY (`modificationID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `department`
+-- Dumping data for table `modification`
 --
 
-LOCK TABLES `department` WRITE;
-/*!40000 ALTER TABLE `department` DISABLE KEYS */;
-/*!40000 ALTER TABLE `department` ENABLE KEYS */;
+LOCK TABLES `modification` WRITE;
+/*!40000 ALTER TABLE `modification` DISABLE KEYS */;
+INSERT INTO `modification` VALUES (1,'2023-02-03 01:35:00','Instructor Name','John Smith',NULL,1,'golivott');
+/*!40000 ALTER TABLE `modification` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -127,10 +105,11 @@ DROP TABLE IF EXISTS `outline`;
 CREATE TABLE `outline` (
   `outlineID` int NOT NULL AUTO_INCREMENT,
   `dateApproved` datetime DEFAULT NULL,
-  `status` varchar(45) DEFAULT NULL,
-  `courseID` varchar(20) DEFAULT NULL,
+  `status` varchar(45) NOT NULL,
+  `courseID` varchar(20) NOT NULL,
+  `term` varchar(45) NOT NULL,
   PRIMARY KEY (`outlineID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -139,6 +118,7 @@ CREATE TABLE `outline` (
 
 LOCK TABLES `outline` WRITE;
 /*!40000 ALTER TABLE `outline` DISABLE KEYS */;
+INSERT INTO `outline` VALUES (1,'2023-02-03 01:35:00','Approved','SE3350','Winter 2023');
 /*!40000 ALTER TABLE `outline` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -151,7 +131,9 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `userID` varchar(20) NOT NULL,
-  `role` varchar(45) DEFAULT NULL,
+  `admin` tinyint NOT NULL DEFAULT '0',
+  `instructor` tinyint NOT NULL DEFAULT '0',
+  `reviewer` tinyint NOT NULL DEFAULT '0',
   PRIMARY KEY (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -162,6 +144,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('golivott',1,0,0),('test1',0,1,0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,6 +168,7 @@ CREATE TABLE `user_course_assignment` (
 
 LOCK TABLES `user_course_assignment` WRITE;
 /*!40000 ALTER TABLE `user_course_assignment` DISABLE KEYS */;
+INSERT INTO `user_course_assignment` VALUES ('golivott','SE3350');
 /*!40000 ALTER TABLE `user_course_assignment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,4 +204,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-31 17:16:04
+-- Dump completed on 2023-02-03 12:28:11
