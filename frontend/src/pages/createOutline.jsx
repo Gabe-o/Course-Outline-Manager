@@ -7,10 +7,6 @@ import TopicCreator from "../components/topicCreator";
 import Evaluation from "../components/evaluation";
 
 const CreateOutline = () => {
-
-    const handleSubmit = () => {
-
-    }
     return (
         <div>
             <h1>Description</h1>
@@ -129,7 +125,6 @@ const CreateOutline = () => {
             <Textbox />
             <h1>Accessibility</h1>
             <Textbox />
-            <button onClick={handleSubmit}>Submit</button>
         </div>
     )
 }

@@ -1,0 +1,220 @@
+html {
+    background-color: #4f2d82;
+}
+
+.flexcontainer {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin-top: 12.5vh;
+  }
+  
+  .imgcontainer {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .westernlogo {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .loginbg {
+    width: 40%;
+    height: 70vh;
+    background-color: #4f3ba8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ACC196;
+    margin: 20px;
+  }
+  
+  .logintxt {
+    margin-bottom: 1rem;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  input[type="email"] {
+    width: 90%;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+
+  input[type="password"] {
+    width: 90%;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+
+  button.loginbtn {
+    margin: 0.5rem auto;
+    display: block;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #F5F8DE;
+    color: #3f2b96;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover{
+    background-color: #ACC196;
+  }
+  
+  /* .loginnavbtn {
+    margin: 10px;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #3f2b96;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .loginbtn {
+    margin-left: 30%;
+    margin: 10px;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #3f2b96;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  } */
+
+  .checkboxcontainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  label {
+    padding-right: 10px;
+    font-size: large;
+    color: #fff;
+  }
+  
+  @media (max-width: 889px) {
+    .flexcontainer {
+      flex-direction: column;
+      margin-top: 80px;
+    }
+  
+    .imgcontainer {
+      width: 100%;
+    }
+  
+    .loginbg {
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+/* html {
+    background-color: #4f2d82;
+}
+
+.loginbg {
+    background-color: lightblue;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5%;
+    margin-top: 10%;
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    height: 60vh;
+    border-radius: 70px 70px 70px 0;
+}
+
+.westernlogo {
+    width: auto;
+    height: 20vh;
+}
+
+/* .imgcontainer {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flexcontainer {
+    margin: auto;
+    width: 50%;
+}
+
+.email {
+    border-top-style: hidden;
+    border-left-style: hidden;
+    border-right-style: hidden;
+    border-bottom-color: #4f2d82;
+    border-bottom-width: 10%;
+    background-color: lightblue;
+    width: 80%;
+    height: 27%;
+    font-size: large;
+    font-family: "Open Sans", sans-serif;
+    padding: 5px;
+    margin: 10px;
+}
+
+.password {
+    border-top-style: hidden;
+    border-left-style: hidden;
+    border-right-style: hidden;
+    border-bottom-color: #4f2d82;
+    background-color: lightblue;
+    width: 80%;
+    height: 27%;
+    font-size: large;
+    font-family: "Open Sans", sans-serif;
+    padding: 5px;
+    margin: 10px;
+}
+
+.loginbtn {
+    background: none;
+    border: none;
+    font-size: large;
+    padding: 5px;
+    text-align: center;
+    width: 80%;
+}
+
+.logintxt {
+    font-family: "Open Sans", sans-serif;
+    font-size: x-large;
+    font-weight: bold;
+    text-align: center;
+}
+
+.emaillabel {
+    display: block;
+    text-align: center;
+}
+
+.passwordlabel {
+    display: block;
+    text-align: center;
+} */
