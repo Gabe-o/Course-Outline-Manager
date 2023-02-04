@@ -22,7 +22,7 @@ function App() {
         <h1>{test}</h1>
       </div>
       <div>
-      <CreateOutline></CreateOutline>
+        <CreateOutline></CreateOutline>
       </div>
       <Routes>
 
