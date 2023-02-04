@@ -1,6 +1,5 @@
 import axios from "axios";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
 import CreateOutline from "./pages/createOutline";
 import Login from "./pages/login";
 import Register from "./pages/register";
