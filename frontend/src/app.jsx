@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path="" element={<div><Login /></div>} />
         <Route path="/register" element={<div><Register /></div>} />
-        <Route path="/editoutline" element={<div><CreateOutline /></div>} />
+        <Route path="/createOutline" element={<div><CreateOutline /></div>} />
       </Routes>
     </BrowserRouter>
   );

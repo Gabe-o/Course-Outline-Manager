@@ -18,6 +18,7 @@ const Login = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         // Perform form submission logic here
+        navigate("/createOutline")
         console.log(email, password);
     };
 
