@@ -102,7 +102,7 @@ const Topic = ({ topic, topicsList, topicsListSetter }) => {
     }
 
     const cancelEditChanges = () => {
-
+        setEditing(false);
     }
 
     const intToLetter = (num) => {
