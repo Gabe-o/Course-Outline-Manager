@@ -5,6 +5,7 @@ import Switch from "../components/creditsSwitch";
 import LearningObjectivesDropdown from "../components/learningObjectivesDropdown";
 import TopicCreator from "../components/topicCreator";
 import Evaluation from "../components/evaluation";
+import LearningObjective from "../components/learningObjective";
 
 const CreateOutline = () => {
     return (
@@ -50,50 +51,17 @@ const CreateOutline = () => {
             <h1>Recommended References</h1>
             <Textbox sectionLabel={"RecommendedRefrences"} />
             <h1>General Learning Objectives (CEAB)</h1>
-            <h3>Use of Engineering Tools</h3>
-            <LearningObjectivesDropdown />
-            <h5>Comments</h5>
-            <Textbox />
-            <h3>Impact on Society and the Environment</h3>
-            <LearningObjectivesDropdown />
-            <h5>Comments</h5>
-            <Textbox />
-            <h3>Problem Analysis</h3>
-            <LearningObjectivesDropdown />
-            <h5>Comments</h5>
-            <Textbox />
-            <h3>Individual and Team Work</h3>
-            <LearningObjectivesDropdown />
-            <h5>Comments</h5>
-            <Textbox />
-            <h3>Ethics and Equity</h3>
-            <LearningObjectivesDropdown />
-            <h5>Comments</h5>
-            <Textbox />
-            <h3>Investigation</h3>
-            <LearningObjectivesDropdown />
-            <h5>Comments</h5>
-            <Textbox />
-            <h3>Communication Skills</h3>
-            <LearningObjectivesDropdown />
-            <h5>Comments</h5>
-            <Textbox />
-            <h3>Economics and Project Management</h3>
-            <LearningObjectivesDropdown />
-            <h5>Comments</h5>
-            <Textbox />
-            <h3>Design</h3>
-            <LearningObjectivesDropdown />
-            <h5>Comments</h5>
-            <Textbox />
-            <h3>Professionalism</h3>
-            <LearningObjectivesDropdown />
-            <h5>Comments</h5>
-            <Textbox />
-            <h3>Life-Long Learning</h3>
-            <LearningObjectivesDropdown />
-            <h5>Comments</h5>
-            <Textbox />
+            <LearningObjective objective={"Use of Engineering Tools"} sectionLabel={"ToolsCEAB"} />
+            <LearningObjective objective={"Impact on Society and the Environment"} sectionLabel={"EnvironmentCEAB"} />
+            <LearningObjective objective={"Problem Analysis"} sectionLabel={"ProblemCEAB"} />
+            <LearningObjective objective={"Individual and Team Work"} sectionLabel={"WorkCEAB"} />
+            <LearningObjective objective={"Ethics and Equity"} sectionLabel={"EthicsCEAB"} />
+            <LearningObjective objective={"Investigation"} sectionLabel={"InvestigationCEAB"} />
+            <LearningObjective objective={"Communication Skills"} sectionLabel={"CommunicationCEAB"} />
+            <LearningObjective objective={"Economics and Project Management"} sectionLabel={"ManagementCEAB"} />
+            <LearningObjective objective={"Design"} sectionLabel={"DesignCEAB"} />
+            <LearningObjective objective={"Professionalism"} sectionLabel={"ProfessionalismCEAB"} />
+            <LearningObjective objective={"Life-Long Learning"} sectionLabel={"LearningCEAB"} />
             <h1>Topics</h1>
             <TopicCreator />
             <h1>Evaluation</h1>

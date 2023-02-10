@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 
-const LearningObjectiveDropdown = () => {
-    const [value, setValue] = useState("Select GA Indicator");
+const LearningObjectiveDropdown = ({ indicator, setIndicator }) => {
 
     return (
-        <select value={value} onChange={e => setValue(e.target.value)}>
+        <select value={indicator} onChange={e => setIndicator(e.target.value)}>
             <option value="Select GA Indicator" disabled>Select GA Indicator</option>
             <option value="I">I</option>
             <option value="D">D</option>
