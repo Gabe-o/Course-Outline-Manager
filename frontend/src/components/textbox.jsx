@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import moment from "moment";
+
 import "../styles/textbox.css";
 
-const Textbox = ({ defaultValue }) => {
+const Textbox = ({ defaultValue, sectionLabel }) => {
     const [value, setValue] = useState(defaultValue);
     const [editing, setEditing] = useState(false);
     const [originalValue, setOriginalValue] = useState(defaultValue);
@@ -13,6 +15,7 @@ const Textbox = ({ defaultValue }) => {
     const handleSave = () => {
         setEditing(false);
         setOriginalValue(value);
+        console.log(sectionLabel + " " + moment().format("YYYY-MM-DD hh:mm:ss"));
     };
 
     const handleCancel = () => {

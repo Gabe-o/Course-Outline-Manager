@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import moment from "moment";
+
 import "../styles/creditsSwitch.css"
 
-const CreditSwitch = () => {
+const CreditSwitch = ({ sectionLabel }) => {
     const [selectedValue, setSelectedValue] = useState(null);
 
     const handleClick = (value) => {
         setSelectedValue(value);
+        console.log(sectionLabel + " " + moment().format("YYYY-MM-DD hh:mm:ss"));
     };
 
     return (
