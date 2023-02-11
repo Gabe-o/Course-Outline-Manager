@@ -19,7 +19,7 @@ userRouter.get("/:userID", (req, res) => {
         else {
             res.json(data);
         }
-    })
+    });
 });
 
 userRouter.post("/register", (req, res) => {
@@ -54,10 +54,21 @@ userRouter.post("/register", (req, res) => {
         })
 });
 
-userRouter.post("/login", (req, res) => {
+userRouter.get("/login", (req, res) => {
     signInWithEmailAndPassword(auth, req.body.email, req.body.password)
         .then(() => {
-            res.status(200).json(jwt.sign({ email: req.body.email, instructor: req.body.instructor, administrator: req.body.administrator, reviewer: req.body.reviewer }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' }));
+            db.query("SELECT * FROM user WHERE userID=?;", [req.body.email.split("@")[0]], (err, data) => {
+                if (err) {
+                    res.status(500).json(err);
+                }
+                else if (data.length === 0) {
+                    res.status(404).json("userID: '" + req.params.userID + "' not found");
+                }
+                else {
+                    res.status(200).json(jwt.sign({ email: req.body.email, instructor: data.instructor, administrator: data.admin, reviewer: data.reviewer }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' }));
+                }
+            });
+
         })
         .catch(err => {
             res.status(401).json(err);

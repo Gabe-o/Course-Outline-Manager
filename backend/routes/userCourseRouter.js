@@ -12,10 +12,14 @@ userCourseRouter.use((req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-        req.user = decoded;
-        next();
+        if (decoded.administrator === 1) {
+            next();
+        }
+        else {
+            throw new Error("User is not an administrator");
+        }
     } catch (err) {
-        return res.status(401).json({ message: 'Invalid token' });
+        return res.status(401).json("Invalid token");
     }
 });
 // Adds that given user to db
