@@ -1,5 +1,5 @@
-const express = require('express');
-const db = require('../DBConnect.js');
+import express from 'express';
+import db from '../DBConnect.js';
 
 const modificationRouter = express.Router();
 
@@ -43,4 +43,4 @@ modificationRouter.get("", (req, res) => {
         })
 });
 
-module.exports = modificationRouter;
+export default modificationRouter;

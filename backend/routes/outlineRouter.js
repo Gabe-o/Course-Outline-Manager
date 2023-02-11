@@ -1,5 +1,5 @@
-const express = require('express');
-const db = require('../DBConnect.js');
+import express from 'express';
+import db from '../DBConnect.js';
 
 const outlineRouter = express.Router();
 
@@ -82,4 +82,4 @@ outlineRouter.post("/:id", (req, res) => {
         })
 });
 
-module.exports = outlineRouter;
+export default outlineRouter;

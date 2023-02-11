@@ -1,5 +1,5 @@
-const sql = require('mysql2');
-require('dotenv').config();
+import sql from 'mysql2';
+import 'dotenv/config';
 
 // Stores MySQL connection information
 var conn = sql.createConnection({
@@ -9,4 +9,4 @@ var conn = sql.createConnection({
     database: process.env.DBNAME,
 });
 
-module.exports = conn;
+export default conn;

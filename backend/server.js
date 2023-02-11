@@ -1,11 +1,10 @@
-const express = require('express');
-const cors = require("cors");
-
-const userRouter = require("./routes/userRouter");
-const outlineRouter = require("./routes/outlineRouter");
-const modificationRouter = require("./routes/modificationRouter");
-const userCourseRouter = require("./routes/userCourseRouter");
-const courseRouter = require('./routes/courseRouter');
+import express from 'express';
+import cors from "cors";
+import userRouter from "./routes/userRouter.js";
+import outlineRouter from "./routes/outlineRouter.js";
+import modificationRouter from "./routes/modificationRouter.js";
+import userCourseRouter from "./routes/userCourseRouter.js";
+import courseRouter from "./routes/courseRouter.js";
 
 const app = express();
 

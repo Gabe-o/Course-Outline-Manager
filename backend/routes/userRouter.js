@@ -1,5 +1,9 @@
-const express = require('express');
-const db = require('../DBConnect.js');
+
+import { auth } from "../firebase.js";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import express from 'express';
+import db from '../DBConnect.js';
+import jwt from "jsonwebtoken";
 
 const userRouter = express.Router();
 
@@ -43,4 +47,30 @@ userRouter.get("/:userID", (req, res) => {
     })
 });
 
-module.exports = userRouter;
+userRouter.post("/register", (req, res) => {
+
+    if (req.body.email.split("@")[1] != "uwo.ca") {
+        res.status(403).json("This email domain is forbidden, you must register with uwo.ca");
+        return;
+    }
+
+    createUserWithEmailAndPassword(auth, req.body.email, req.body.password)
+        .then(() => {
+            res.status(200).json("We have sent an email verification to " + req.body.email);
+        })
+        .catch((err) => {
+            res.status(500).json(err);
+        })
+});
+
+userRouter.post("/login", (req, res) => {
+    signInWithEmailAndPassword(auth, req.body.email, req.body.password)
+        .then(() => {
+            res.status(200).json(jwt.sign({ email: req.body.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' }));
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        })
+});
+
+export default userRouter;
