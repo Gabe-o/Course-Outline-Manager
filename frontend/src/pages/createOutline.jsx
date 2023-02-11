@@ -66,7 +66,6 @@ const CreateOutline = () => {
             <TopicCreator />
             <h1>Evaluation</h1>
             <Evaluation />
-            <h3>Course Components, Weights, Descriptions</h3>
             <h3>Evaluation Description</h3>
             <Textbox />
             <h1>Late Submission Policy</h1>
@@ -93,6 +92,7 @@ const CreateOutline = () => {
             <Textbox sectionLabel={"Internet&Email"} />
             <h1>Accessibility</h1>
             <Textbox sectionLabel={"Accessibility"} />
+            <button>Submit</button>
         </div>
     )
 }
