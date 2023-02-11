@@ -29,32 +29,40 @@ userRouter.post("/register", (req, res) => {
         return;
     }
 
-    createUserWithEmailAndPassword(auth, req.body.email, req.body.password)
-        .then(() => {
-            if (req.body.admin || req.body.instructor || req.body.reviewer) {
-                db.query("INSERT INTO user VALUES (?, ?, ?, ?, ?);", [req.body.email.split("@")[0], req.body.email, req.body.administrator, req.body.instructor, req.body.reviewer], (err, data) => {
-                    if (err) {
-                        res.status(500).json(err);
-                        return;
-                    }
-                    else {
-                        res.status(200).json("The email " + req.body.email + " has succesfully been registered");
-                        return;
-                    }
-                });
-            }
-            else {
-                res.status(401).json("User must have a role");
+    if (req.body.admin || req.body.instructor || req.body.reviewer) {
+        db.query("INSERT INTO user VALUES (?, ?, ?, ?, ?);", [req.body.email.split("@")[0], req.body.email, req.body.administrator, req.body.instructor, req.body.reviewer], (err, data) => {
+            if (err) {
+                res.status(500).json(err);
                 return;
             }
+            else {
+                createUserWithEmailAndPassword(auth, req.body.email, req.body.password)
+                    .then(() => {
+                        res.status(200).json("The email " + req.body.email + " has succesfully been registered");
+                        return;
+                    })
+                    .catch((err) => {
+                        db.query("DELETE FROM user WHERE userID=?", [req.body.email.split("@")[0]], (err2) => {
+                            if (err2) {
+                                res.status(500).json("This account is not functional, contact your administrator");
+                            }
+                            else {
+                                res.status(500).json(err);
+                            }
+                        });
 
-        })
-        .catch((err) => {
-            res.status(500).json(err);
-        })
+                    });
+            }
+        });
+    }
+    else {
+        res.status(401).json("User must have a role");
+        return;
+    }
 });
 
-userRouter.get("/login", (req, res) => {
+
+userRouter.post("/login", (req, res) => {
     signInWithEmailAndPassword(auth, req.body.email, req.body.password)
         .then(() => {
             db.query("SELECT * FROM user WHERE userID=?;", [req.body.email.split("@")[0]], (err, data) => {
@@ -62,7 +70,7 @@ userRouter.get("/login", (req, res) => {
                     res.status(500).json(err);
                 }
                 else if (data.length === 0) {
-                    res.status(404).json("userID: '" + req.params.userID + "' not found");
+                    res.status(404).json("userID: " + req.body.email.split("@")[0] + " not found");
                 }
                 else {
                     res.status(200).json(jwt.sign({ email: req.body.email, instructor: data.instructor, administrator: data.admin, reviewer: data.reviewer }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' }));

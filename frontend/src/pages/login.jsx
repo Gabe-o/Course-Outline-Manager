@@ -18,7 +18,7 @@ const Login = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.get("http://localhost:9000/api/user/login", { email: email, password: password }, { headers: { "Content-Type": "application/json" } })
+        axios.post("http://localhost:9000/api/user/login", { email: email, password: password }, { headers: { "Content-Type": "application/json" } })
             .then(res => {
                 const now = new Date();
                 cookies.set('jwt', res.data, { expires: new Date(now.getTime() + (60 * 60 * 1000)) })
