@@ -25,7 +25,7 @@ const Register = () => {
             .has().not().spaces();
 
         if (passwordRequirments.validate(password)) {
-            axios.post("http://localhost:9000/api/user/register", { email: email, password: password }, { headers: { "Content-Type": "application/json" } })
+            axios.post("http://localhost:9000/api/user/register", { email: email, password: password, instructor: isInstructor, administrator: isAdministrator, reviewer: isReviewer }, { headers: { "Content-Type": "application/json" } })
                 .then(res => alert(res.data))
                 .catch(err => {
                     alert(JSON.stringify(err.response.data));
