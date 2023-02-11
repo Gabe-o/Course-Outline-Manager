@@ -119,7 +119,7 @@ const CreateOutline = () => {
             <h1>Use of Personal Response Devices ("Clickers")</h1>
             <Textbox />
             <h1>Policy on Repating All Components of a Course</h1>
-            <Textbox></Textbox>
+            <Textbox />
             <h1>Internet and Electronic Mail</h1>
             <Textbox />
             <h1>Accessibility</h1>
