@@ -1,6 +1,6 @@
 
 import { auth } from "../firebase.js";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import express from 'express';
 import db from '../DBConnect.js';
 import jwt from "jsonwebtoken";
@@ -50,7 +50,6 @@ userRouter.post("/register", (req, res) => {
                                 res.status(500).json(err);
                             }
                         });
-
                     });
             }
         });
