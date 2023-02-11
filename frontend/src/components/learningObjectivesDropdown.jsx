@@ -4,7 +4,7 @@ const LearningObjectiveDropdown = () => {
     const [value, setValue] = useState("Select GA Indicator");
 
     return (
-        <select value={value} onChange={e => setValue(e.target.value)}>
+        <select value={value} onChange={(event) => setValue(event.target.value)}>
             <option value="Select GA Indicator" disabled>Select GA Indicator</option>
             <option value="I">I</option>
             <option value="D">D</option>

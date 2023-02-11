@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import EvaluationDescription from "./evalutationDescription";
 
 const evaluations = ["Homework Assignments", "Quizzes", "Laboratory", "Midterm Test", "Final Examinations"];
 
@@ -17,6 +18,8 @@ const Evaluation = () => {
 
     const handleAddOption = () => {
         setShowTextbox(true);
+        setShowAddEvaluation(false);
+        setAddSection(false);
     };
 
     const handleSaveOption = () => {
@@ -31,7 +34,10 @@ const Evaluation = () => {
     };
 
     const handleRemoveOption = () => {
+        setShowTextbox(false);
         setShowAddEvaluation(true);
+        setAddSection(false);
+
     };
 
     const handleCloseAddEvaluation = () => {
@@ -46,6 +52,8 @@ const Evaluation = () => {
     const handleAddSection = () => {
         setAddSection(true);
         setCancel(false);
+        setShowTextbox(false);
+        setShowAddEvaluation(false);
     }
 
     const handleAddWeight = () => {
@@ -83,18 +91,21 @@ const Evaluation = () => {
                     <button onClick={handleCancelOption}>Cancel</button>
                 </div>
             )}
-            {showAddEvaluation && (
+            {showAddEvaluation && (options.length > 5 ?
                 <div>
+
                     <div>
                         {options.filter((option) => !evaluations.includes(option)).map((option) => (
                             <div key={option}>
                                 <p>{option}</p>
                                 <button onClick={() => handleDeleteOption(option)}>Delete</button>
+                                <button onClick={handleCloseAddEvaluation}>Close</button>
                             </div>
                         ))}
                     </div>
-                    <button onClick={handleCloseAddEvaluation}>Close</button>
+
                 </div>
+                : setShowAddEvaluation(false)
             )}
 
             <button onClick={handleAddSection}>Add Section</button>
@@ -109,8 +120,13 @@ const Evaluation = () => {
                 <button onClick={handleCancel}>Cancel</button>
             </div> : ""}
             {breakdown.length > 0 ? breakdown.map(element => <p>{element.evaluation + " " + element.weight}</p>) : ""}
+
+            <h3>Evaluations Descriptions</h3>
+
+            {options.map((option, i) => (<EvaluationDescription evaluation={option} key={i} />))}
+
         </div>
-    );
+    )
 };
 
 export default Evaluation;
