@@ -10,18 +10,20 @@ userCourseRouter.use((req, res, next) => {
         return next();
     }
 
-    try {
-        const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(401).json("Invalid token");
+        }
+
         if (decoded.administrator === 1) {
             next();
         }
         else {
-            throw new Error("User is not an administrator");
+            return res.status(401).json("User is not an administrator");
         }
-    } catch (err) {
-        return res.status(401).json("Invalid token");
-    }
+    });
 });
+
 // Adds that given user to db
 userCourseRouter.post("", (req, res) => {
     db.query("INSERT INTO user_course_assignment VALUES (?, ?);",

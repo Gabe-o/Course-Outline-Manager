@@ -9,13 +9,15 @@ allUsersRouter.use((req, res, next) => {
         return next();
     }
 
-    try {
-        const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+        if (err) {
+            res.status(401).json("Invalid token");
+        }
+
         console.log(decoded);
         req.user = decoded;
-    } catch (err) {
-        return res.status(401).json("Invalid token");
-    }
+    });
+
 });
 
 allUsersRouter.get("/role", (req, res) => {
