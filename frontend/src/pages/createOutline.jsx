@@ -8,8 +8,14 @@ import Evaluation from "../components/evaluation";
 import LearningObjective from "../components/learningObjective";
 
 const CreateOutline = () => {
+
+    const getEmail = () => {
+
+    }
+
     return (
         <div>
+            <h1></h1>
             <h1>Description</h1>
             <Textbox sectionLabel={"Description"} />
             <h1>Instructor</h1>

@@ -1,5 +1,5 @@
-const express = require('express');
-const db = require('../DBConnect.js');
+import express from 'express';
+import db from '../DBConnect.js';
 
 const courseRouter = express.Router();
 
@@ -36,4 +36,4 @@ courseRouter.get("/:courseID", (req, res) => {
     })
 });
 
-module.exports = courseRouter;
+export default courseRouter;

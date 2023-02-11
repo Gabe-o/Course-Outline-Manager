@@ -1,17 +1,25 @@
-import axios from "axios";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/home';
 import CreateOutline from "./pages/createOutline";
 import Login from "./pages/login";
 import Register from "./pages/register";
+import ManageCourses from './pages/manageCourses';
+import AdminWrapper from './components/adminWrapper';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="" element={<div><Login /></div>} />
-        <Route path="/register" element={<div><Register /></div>} />
-        <Route path="/createOutline" element={<div><CreateOutline /></div>} />
+        <Route path="" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/createOutline" element={<CreateOutline />} />
+        <Route element={<AdminWrapper />}>
+          <Route path="/manageCourses" element={<ManageCourses />} />
+        </Route>
       </Routes>
+
     </BrowserRouter>
   );
 }
