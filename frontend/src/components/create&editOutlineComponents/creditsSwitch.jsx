@@ -7,7 +7,6 @@ const CreditSwitch = ({ sectionLabel }) => {
 
     const handleClick = (value) => {
         setSelectedValue(value);
-        console.log(sectionLabel + " " + moment().format("YYYY-MM-DD hh:mm:ss"));
     };
 
     return (

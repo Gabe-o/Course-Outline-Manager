@@ -58,14 +58,12 @@ const Evaluation = () => {
 
     const handleAddWeight = () => {
         setAddSection(false);
-        console.log(evaluation);
         const assessment = {
             evaluation: evaluation,
             weight: weight,
         }
         breakdown.push(assessment);
         setBreakdown(breakdown);
-        console.log(breakdown);
         setWeight("0");
         setEvaluation("Homework Assignments");
     }

@@ -14,7 +14,6 @@ const Textbox = ({ defaultValue, sectionLabel }) => {
     const handleSave = () => {
         setEditing(false);
         setOriginalValue(value);
-        console.log(sectionLabel + " " + moment().format("YYYY-MM-DD hh:mm:ss"));
     };
 
     const handleCancel = () => {
