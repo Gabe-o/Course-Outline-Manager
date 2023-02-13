@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import moment from "moment";
-
-import "../styles/textbox.css";
+import "../../styles/textbox.css";
 
 const Textbox = ({ defaultValue, sectionLabel }) => {
     const [value, setValue] = useState(defaultValue);

@@ -12,14 +12,12 @@ const AdminWrapper = () => {
     useEffect(() => {
         axios.get("http://localhost:9000/api/allUsers/role", { headers: { "token": cookies.get("jwt") } })
             .then(res => {
-                alert(res.data.administrator);
                 if (res.data.administrator === 1) {
                     isAdmin(true);
                 }
                 setServerFinished(true);
             })
             .catch(err => {
-                console.log("Entered err");
                 alert(err);
                 setServerFinished(true);
             });

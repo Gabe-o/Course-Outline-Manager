@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import westernLogo from "../images/westernlogo.png";
+import westernLogo from "../../images/westernlogo.png";
 import axios from "axios";
 import passwordValidator from "password-validator";
-import "../styles/login.css";
+import "../../styles/login.css";
 
 const Register = () => {
     const [email, setEmail] = useState("");

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import moment from "moment";
-
-import "../styles/creditsSwitch.css"
+import "../../styles/creditsSwitch.css"
 
 const CreditSwitch = ({ sectionLabel }) => {
     const [selectedValue, setSelectedValue] = useState(null);

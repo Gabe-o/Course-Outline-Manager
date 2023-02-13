@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import moment from 'moment';
-import "../styles/counter.css";
+import "../../styles/counter.css";
 
 const Counter = ({ sectionLabel }) => {
     const [count, setCount] = useState(0);
