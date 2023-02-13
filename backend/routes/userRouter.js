@@ -2,6 +2,7 @@
 import { auth } from "../firebase.js";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import express from 'express';
+import 'dotenv/config';
 import db from '../DBConnect.js';
 import jwt from "jsonwebtoken";
 
@@ -29,7 +30,7 @@ userRouter.post("/register", (req, res) => {
         return;
     }
 
-    if (req.body.admin || req.body.instructor || req.body.reviewer) {
+    if (req.body.administrator || req.body.instructor || req.body.reviewer) {
         db.query("INSERT INTO user VALUES (?, ?, ?, ?, ?);", [req.body.email.split("@")[0], req.body.email, req.body.administrator, req.body.instructor, req.body.reviewer], (err, data) => {
             if (err) {
                 res.status(500).json(err);
@@ -72,7 +73,7 @@ userRouter.post("/login", (req, res) => {
                     res.status(404).json("userID: " + req.body.email.split("@")[0] + " not found");
                 }
                 else {
-                    res.status(200).json(jwt.sign({ email: req.body.email, instructor: data.instructor, administrator: data.admin, reviewer: data.reviewer }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' }));
+                    res.status(200).json(jwt.sign({ email: req.body.email, instructor: data[0].instructor, administrator: data[0].admin, reviewer: data[0].reviewer }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' }));
                 }
             });
 

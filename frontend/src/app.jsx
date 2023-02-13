@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/home';
-import CreateOutline from "./pages/createOutline";
-import Login from "./pages/login";
-import Register from "./pages/register";
-import ManageCourses from './pages/manageCourses';
-import AdminWrapper from './components/adminWrapper';
+import Home from './pages/defaultPages/home';
+import CreateOutline from "./pages/instructorPages/createOutline";
+import Login from "./pages/defaultPages/login";
+import Register from "./pages/defaultPages/register";
+import ManageCourses from './pages/adminPages/manageCourses';
+import AdminWrapper from './components/wrappers/adminWrapper';
 
 function App() {
   return (

@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import cookies from 'js-cookie';
-import westernLogo from "../images/westernlogo.png";
-
-import "../styles/login.css";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import westernLogo from "../../images/westernlogo.png";
+import "../../styles/login.css";
 
 const Login = () => {
 

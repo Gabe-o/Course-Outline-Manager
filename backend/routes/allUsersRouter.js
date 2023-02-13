@@ -1,5 +1,6 @@
 import express from 'express';
 import jwt from "jsonwebtoken";
+import 'dotenv/config';
 
 const allUsersRouter = express.Router();
 
@@ -13,15 +14,16 @@ allUsersRouter.use((req, res, next) => {
         if (err) {
             res.status(401).json("Invalid token");
         }
+        else {
+            req.user = decoded;
+            next();
+        }
 
-        console.log(decoded);
-        req.user = decoded;
     });
 
 });
 
 allUsersRouter.get("/role", (req, res) => {
-    console.log(req.user);
     res.status(200).json(req.user);
 });
 

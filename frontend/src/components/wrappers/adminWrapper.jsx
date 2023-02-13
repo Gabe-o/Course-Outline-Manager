@@ -7,27 +7,24 @@ import cookies from 'js-cookie';
 const AdminWrapper = () => {
 
     const [admin, isAdmin] = useState(false);
-    const [serverFinished, setServerFinished] = useState(false)
+    const [serverFinished, setServerFinished] = useState(false);
 
     useEffect(() => {
-
-        console.log(cookies.get("jwt"));
         axios.get("http://localhost:9000/api/allUsers/role", { headers: { "token": cookies.get("jwt") } })
             .then(res => {
-                if (res.data.administrator) {
+                if (res.data.administrator === 1) {
                     isAdmin(true);
-                    setServerFinished(true);
                 }
+                setServerFinished(true);
             })
             .catch(err => {
                 alert(err);
-                serverFinished(true);
+                setServerFinished(true);
             });
-
     }, []);
 
     //returns to home page
-    return (serverFinished ? (admin ? <Outlet /> : <Navigate to="/home" />) : <h1>Loading</h1>);
+    return (serverFinished ? (admin ? <Outlet /> : <Navigate to="/home" />) : "");
 }
 
 export default AdminWrapper;
