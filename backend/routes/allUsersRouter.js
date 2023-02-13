@@ -14,9 +14,11 @@ allUsersRouter.use((req, res, next) => {
         if (err) {
             res.status(401).json("Invalid token");
         }
+        else {
+            req.user = decoded;
+            next();
+        }
 
-        console.log(decoded);
-        req.user = decoded;
     });
 
 });

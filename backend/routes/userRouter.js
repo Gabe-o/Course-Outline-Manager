@@ -30,7 +30,7 @@ userRouter.post("/register", (req, res) => {
         return;
     }
 
-    if (req.body.admin || req.body.instructor || req.body.reviewer) {
+    if (req.body.administrator || req.body.instructor || req.body.reviewer) {
         db.query("INSERT INTO user VALUES (?, ?, ?, ?, ?);", [req.body.email.split("@")[0], req.body.email, req.body.administrator, req.body.instructor, req.body.reviewer], (err, data) => {
             if (err) {
                 res.status(500).json(err);
