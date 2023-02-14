@@ -1,7 +1,25 @@
 import express from 'express';
+import jwt from 'jsonwebtoken';
 import db from '../DBConnect.js';
 
 const modificationRouter = express.Router();
+
+modificationRouter.use((req, res, next) => {
+    const token = req.headers.token;
+    if (!token) {
+        res.status(401);
+    }
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+        if (err) {
+            res.status(401).json("Invalid token");
+        }
+        else {
+            req.user = decoded;
+            next();
+        }
+    });
+});
 
 // Add a change to an outline in db
 modificationRouter.post("", (req, res) => {
@@ -12,7 +30,7 @@ modificationRouter.post("", (req, res) => {
             req.body.content,
             req.body.comment,
             req.body.outlineID,
-            req.body.authorID
+            req.user.email.split("@")[0]
         ],
         (err, data) => {
             if (err) {

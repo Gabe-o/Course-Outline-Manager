@@ -69,9 +69,9 @@ const CreateOutline = () => {
             <LearningObjective objective={"Professionalism"} sectionLabel={"ProfessionalismCEAB"} />
             <LearningObjective objective={"Life-Long Learning"} sectionLabel={"LearningCEAB"} />
             <h1>Topics</h1>
-            <TopicCreator />
+            <TopicCreator sectionLabel={"Topics"} />
             <h1>Evaluation</h1>
-            <Evaluation />
+            <Evaluation sectionLabel={"Evaluation"} />
             <h3>Evaluation Description</h3>
             <Textbox />
             <h1>Late Submission Policy</h1>

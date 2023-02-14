@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from "axios";
+import cookies from "js-cookie";
 import moment from 'moment';
 import LearningObjectivesDropdown from './learningObjectivesDropdown';
 
@@ -13,7 +15,18 @@ const LearningObjective = ({ objective, sectionLabel }) => {
         setEditing(false);
         setSavedIndicator(indicator);
         setSavedComment(comment);
-        console.log(sectionLabel + " " + moment().format("YYYY-MM-DD hh:mm:ss"));
+
+        console.log(sectionLabel + " " + indicator + " " + comment + " " + moment().format("YYYY-MM-DD hh:mm:ss"));
+        axios.post("http://localhost:9000/api/modification", {
+            dateTime: moment().format("YYYY-MM-DD hh:mm:ss"),
+            section: sectionLabel,
+            content: indicator,
+            comment: comment,
+            outlineID: 0,
+        }, { headers: { "Content-Type": "application/json", "token": cookies.get("jwt") } })
+            .catch(err => {
+                alert(JSON.stringify(err.response.data));
+            });
     }
 
     const handleCancel = () => {
