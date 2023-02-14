@@ -1,6 +1,9 @@
 import { useState } from "react";
+import axios from "axios";
+import cookies from "js-cookie";
+import moment from "moment";
 
-const Topic = ({ topic, topicsList, topicsListSetter }) => {
+const Topic = ({ topic, topicsList, topicsListSetter, sectionLabel }) => {
 
     const [topicValue, setTopicValue] = useState(topic);
     const [descriptionValue, setDescriptionValue] = useState("");
@@ -65,10 +68,48 @@ const Topic = ({ topic, topicsList, topicsListSetter }) => {
             indicator: indicatorValue,
         }
         setPoints([...points, point]);
+
+        console.log(sectionLabel + " " + JSON.stringify([...points, point]) + " " + moment().format("YYYY-MM-DD hh:mm:ss"));
+        axios.post("http://localhost:9000/api/modification", {
+            dateTime: moment().format("YYYY-MM-DD hh:mm:ss"),
+            section: sectionLabel,
+            content: JSON.stringify([...points, point]),
+            comment: null,
+            outlineID: 0,
+        }, { headers: { "Content-Type": "application/json", "token": cookies.get("jwt") } })
+            .catch(err => {
+                alert(JSON.stringify(err.response.data));
+            });
     }
 
     const deleteTopic = () => {
         topicsListSetter(topicsList.filter(element => element !== topic));
+
+        // Clear points for this topic
+        console.log(sectionLabel + " " + null + " " + moment().format("YYYY-MM-DD hh:mm:ss"));
+        axios.post("http://localhost:9000/api/modification", {
+            dateTime: moment().format("YYYY-MM-DD hh:mm:ss"),
+            section: sectionLabel,
+            content: null,
+            comment: null,
+            outlineID: 0,
+        }, { headers: { "Content-Type": "application/json", "token": cookies.get("jwt") } })
+            .catch(err => {
+                alert(JSON.stringify(err.response.data));
+            });
+
+        // remove topic from list of topics
+        console.log(sectionLabel.split(" ")[0] + " " + JSON.stringify(topicsList.filter(element => element !== topic)) + " " + moment().format("YYYY-MM-DD hh:mm:ss"));
+        axios.post("http://localhost:9000/api/modification", {
+            dateTime: moment().format("YYYY-MM-DD hh:mm:ss"),
+            section: sectionLabel.split(" ")[0],
+            content: JSON.stringify(topicsList.filter(element => element !== topic)),
+            comment: null,
+            outlineID: 0,
+        }, { headers: { "Content-Type": "application/json", "token": cookies.get("jwt") } })
+            .catch(err => {
+                alert(JSON.stringify(err.response.data));
+            });
     }
 
     const editTopic = () => {
@@ -81,10 +122,49 @@ const Topic = ({ topic, topicsList, topicsListSetter }) => {
     const saveEditChanges = () => {
         if (topicValue !== topic) {
             if (topicsList.indexOf(topic) !== -1) {
-                topicsList[topicsList.indexOf(topic)] = topicValue;
-                topicsListSetter(topicsList);
+                let newTopicsList = topicsList.slice();
+                newTopicsList[topicsList.indexOf(topic)] = topicValue;
+                topicsListSetter(newTopicsList);
+
+                // Clear points for old topic name
+                console.log(sectionLabel + " " + null + " " + moment().format("YYYY-MM-DD hh:mm:ss"));
+                axios.post("http://localhost:9000/api/modification", {
+                    dateTime: moment().format("YYYY-MM-DD hh:mm:ss"),
+                    section: sectionLabel,
+                    content: null,
+                    comment: null,
+                    outlineID: 0,
+                }, { headers: { "Content-Type": "application/json", "token": cookies.get("jwt") } })
+                    .catch(err => {
+                        alert(JSON.stringify(err.response.data));
+                    });
+                // Change topic name in topic list
+                console.log(sectionLabel.split(" ")[0] + " " + JSON.stringify(newTopicsList) + " " + moment().format("YYYY-MM-DD hh:mm:ss"));
+                axios.post("http://localhost:9000/api/modification", {
+                    dateTime: moment().format("YYYY-MM-DD hh:mm:ss"),
+                    section: sectionLabel.split(" ")[0],
+                    content: JSON.stringify(newTopicsList),
+                    comment: null,
+                    outlineID: 0,
+                }, { headers: { "Content-Type": "application/json", "token": cookies.get("jwt") } })
+                    .catch(err => {
+                        alert(JSON.stringify(err.response.data));
+                    });
+                // Add old points to new topic name
+                console.log(sectionLabel.split(" ")[0] + " " + topicValue + " " + JSON.stringify(points) + " " + moment().format("YYYY-MM-DD hh:mm:ss"));
+                axios.post("http://localhost:9000/api/modification", {
+                    dateTime: moment().format("YYYY-MM-DD hh:mm:ss"),
+                    section: sectionLabel.split(" ")[0] + " " + topicValue,
+                    content: JSON.stringify(points),
+                    comment: null,
+                    outlineID: 0,
+                }, { headers: { "Content-Type": "application/json", "token": cookies.get("jwt") } })
+                    .catch(err => {
+                        alert(JSON.stringify(err.response.data));
+                    });
             }
         }
+
         if (editedPoints.length != 0) {
             for (let i = 0; i < initialValues.length; i++) {
                 if (initialValues[i].description !== (editedPoints[i].description ? editedPoints[i].description : initialValues[i].description)) {
@@ -95,10 +175,22 @@ const Topic = ({ topic, topicsList, topicsListSetter }) => {
                     points[i].indicator = editedPoints[i].indicator;
                 }
             }
+            console.log(sectionLabel.split(" ")[0] + " " + topicValue + " " + JSON.stringify(points) + " " + moment().format("YYYY-MM-DD hh:mm:ss"));
+            axios.post("http://localhost:9000/api/modification", {
+                dateTime: moment().format("YYYY-MM-DD hh:mm:ss"),
+                section: sectionLabel.split(" ")[0] + " " + topicValue,
+                content: JSON.stringify(points),
+                comment: null,
+                outlineID: 0,
+            }, { headers: { "Content-Type": "application/json", "token": cookies.get("jwt") } })
+                .catch(err => {
+                    alert(JSON.stringify(err.response.data));
+                });
         }
         setEditing(false);
         setPoints(points);
         setEditedPoints([]);
+
     }
 
     const cancelEditChanges = () => {
