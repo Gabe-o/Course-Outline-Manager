@@ -52,6 +52,7 @@ CREATE TABLE `course` (
   `courseID` varchar(20) NOT NULL,
   `courseName` varchar(60) NOT NULL,
   `courseReviewer` varchar(20) NOT NULL,
+  `department` varchar(45) NOT NULL,
   PRIMARY KEY (`courseID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -178,4 +179,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-15 16:23:35
+-- Dump completed on 2023-02-15 16:40:20
