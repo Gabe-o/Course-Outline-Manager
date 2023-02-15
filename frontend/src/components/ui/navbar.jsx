@@ -55,10 +55,12 @@ const Navbar = () => {
         cookies.remove("jwt");
         navigate("/home");
         setAuthenticated(false);
+        window.location.reload(false);
     };
 
     const handleLogin = () => {
         navigate("/login");
+        window.location.reload(false);
     }
 
     const navBarContents = () => {
