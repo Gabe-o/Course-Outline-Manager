@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import westernLogo from "../images/westernlogo.png";
-import "../styles/login.css";
+import westernLogo from "../../images/westernlogo.png";
+import axios from "axios";
+import passwordValidator from "password-validator";
+import "../../styles/login.css";
 
 const Register = () => {
     const [email, setEmail] = useState("");
@@ -13,12 +15,31 @@ const Register = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Perform form submission logic here
-        console.log(email, password, isInstructor, isAdministrator, isReviewer);
+        let passwordRequirments = new passwordValidator();
+        passwordRequirments
+            .is().min(8)
+            .is().max(128)
+            .has().uppercase()
+            .has().lowercase()
+            .has().digits(1)
+            .has().not().spaces();
+
+        if (passwordRequirments.validate(password)) {
+            axios.post("http://localhost:9000/api/user/register", { email: email, password: password, instructor: isInstructor, administrator: isAdministrator, reviewer: isReviewer }, { headers: { "Content-Type": "application/json" } })
+                .then(res => alert(res.data))
+                .catch(err => {
+                    alert(JSON.stringify(err.response.data));
+                });
+        }
+
+        else {
+            alert(passwordRequirments.validate(password, { details: true })[0].message);
+        }
+
     };
 
     const handleLoginClick = () => {
-        navigate("/");
+        navigate("/login");
     };
 
     return (

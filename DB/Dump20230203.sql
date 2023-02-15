@@ -131,6 +131,7 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `userID` varchar(20) NOT NULL,
+  `email` varchar(100) NOT NULL,
   `admin` tinyint NOT NULL DEFAULT '0',
   `instructor` tinyint NOT NULL DEFAULT '0',
   `reviewer` tinyint NOT NULL DEFAULT '0',
@@ -144,7 +145,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('golivott',1,0,0),('test1',0,1,0);
+
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 

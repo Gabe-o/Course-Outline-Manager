@@ -1,12 +1,15 @@
+import axios from "axios";
+import cookies from 'js-cookie';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import westernLogo from "../images/westernlogo.png";
-
-import "../styles/login.css";
+import { useContext } from 'react';
+import AuthContext from "../../components/misc/authContext";
+import westernLogo from "../../images/westernlogo.png";
+import "../../styles/login.css";
 
 const Login = () => {
 
+    const { authenticated, setAuthenticated } = useContext(AuthContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
@@ -17,9 +20,18 @@ const Login = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Perform form submission logic here
-        navigate("/createOutline")
-        console.log(email, password);
+        axios.post("http://localhost:9000/api/user/login", { email: email, password: password }, { headers: { "Content-Type": "application/json" } })
+            .then(res => {
+                const now = new Date();
+                cookies.set('jwt', res.data, { expires: new Date(now.getTime() + (60 * 60 * 1000)) });
+                setAuthenticated(true);
+                navigate("/createOutline");
+            })
+            .catch(err => {
+                alert(JSON.stringify(err.response.data));
+            });
+
+
     };
 
     return (<div className='flexcontainer'>
