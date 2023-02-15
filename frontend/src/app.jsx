@@ -6,8 +6,10 @@ import Login from "./pages/defaultPages/login";
 import Register from "./pages/defaultPages/register";
 import ManageCourses from './pages/adminPages/manageCourses';
 import AdminWrapper from './components/wrappers/adminWrapper';
-import Navbar from './components/navbar';
-import AuthContext from './components/AuthContext';
+import Navbar from './components/ui/navbar';
+import AuthContext from './components/misc/authContext';
+import InstructorWrapper from './components/wrappers/instructorWrapper';
+import ReviewerWrapper from './components/wrappers/reviewerWrapper';
 
 function App() {
 
@@ -22,9 +24,13 @@ function App() {
           <Route path="" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/createOutline" element={<CreateOutline />} />
+          <Route element={<InstructorWrapper />}>
+            <Route path="/createOutline" element={<CreateOutline />} />
+          </Route>
           <Route element={<AdminWrapper />}>
             <Route path="/manageCourses" element={<ManageCourses />} />
+          </Route>
+          <Route element={<ReviewerWrapper />}>
           </Route>
         </Routes>
       </AuthContext.Provider>

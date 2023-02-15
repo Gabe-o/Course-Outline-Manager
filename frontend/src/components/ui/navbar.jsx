@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import AuthContext from './AuthContext';
+import AuthContext from '../misc/authContext';
 import cookies from "js-cookie";
 import axios from 'axios';
-import '../styles/navbar.css';
+import '../../styles/navbar.css';
 
 
 const Navbar = () => {
@@ -40,44 +40,66 @@ const Navbar = () => {
     const handleOptionChange = (event) => {
         switch (event.target.value) {
             case 'Create Outline':
-                console.log('Create Outline clicked');
+                navigate("/createOutline");
                 break;
             case 'Edit Outline':
-                console.log('Edit Outline clicked');
                 break;
             case 'View Outlines':
-                console.log('View Outlines clicked');
                 break;
             default:
-                console.log('Outlines clicked');
                 break;
         }
     };
 
     const handleLogout = () => {
-        setAuthenticated(false);
         cookies.remove("jwt");
         navigate("/home");
+        setAuthenticated(false);
     };
 
     const handleLogin = () => {
         navigate("/login");
     }
 
+    const navBarContents = () => {
+        if (role === "instructor") {
+            return (
+                <div>
+                    <select value={selectedOption} onChange={handleOptionChange}>
+                        <option value="" disabled hidden>Outlines</option>
+                        <option value="Create Outline">Create Outline</option>
+                        <option value="Edit Outline">Edit Outline</option>
+                        <option value="View Outlines">View Outlines</option>
+                    </select>
+                </div>
+            );
+        }
+        else if (role === "administrator") {
+            return (
+                <div>
+                    <button>Admin TO DO</button>
+                </div>
+            );
+        }
+        else if (role === "reviewer") {
+            return (
+                <div>
+                    <button>Reviewer TO DO</button>
+                </div>
+            );
+        }
+        else {
+            return null;
+        }
+    }
+
     return (
         <div className="navbar-container">
-            <div className="navbar-title-container">
+            <div>
                 <h1>Western ECE Outline Management</h1>
             </div>
-            <div className="navbar-dropdown-container">
-                <select value={selectedOption} onChange={handleOptionChange}>
-                    <option value="" disabled hidden>Outlines</option>
-                    <option value="Create Outline">Create Outline</option>
-                    <option value="Edit Outline">Edit Outline</option>
-                    <option value="View Outlines">View Outlines</option>
-                </select>
-            </div>
-            <div className="navbar-username-container">
+            {navBarContents()}
+            <div>
                 {authenticated ?
                     <div>
                         <p>{username + " (" + role + ")"}</p>

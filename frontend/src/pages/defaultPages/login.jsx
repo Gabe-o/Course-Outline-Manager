@@ -3,7 +3,7 @@ import cookies from 'js-cookie';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import AuthContext from "../../components/AuthContext";
+import AuthContext from "../../components/misc/authContext";
 import westernLogo from "../../images/westernlogo.png";
 import "../../styles/login.css";
 
