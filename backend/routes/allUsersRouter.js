@@ -23,7 +23,7 @@ allUsersRouter.use((req, res, next) => {
 
 });
 
-allUsersRouter.get("/role", (req, res) => {
+allUsersRouter.get("/info", (req, res) => {
     res.status(200).json(req.user);
 });
 

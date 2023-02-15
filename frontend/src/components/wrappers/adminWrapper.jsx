@@ -10,7 +10,7 @@ const AdminWrapper = () => {
     const [serverFinished, setServerFinished] = useState(false);
 
     useEffect(() => {
-        axios.get("http://localhost:9000/api/allUsers/role", { headers: { "token": cookies.get("jwt") } })
+        axios.get("http://localhost:9000/api/allUsers/info", { headers: { "token": cookies.get("jwt") } })
             .then(res => {
                 if (res.data.administrator === 1) {
                     isAdmin(true);
