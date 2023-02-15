@@ -10,6 +10,7 @@ import Navbar from './components/ui/navbar';
 import AuthContext from './components/misc/authContext';
 import InstructorWrapper from './components/wrappers/instructorWrapper';
 import ReviewerWrapper from './components/wrappers/reviewerWrapper';
+import OutlineManagment from './pages/instructorPages/outlineManagment';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route element={<InstructorWrapper />}>
             <Route path="/createOutline" element={<CreateOutline />} />
+            <Route path="/outlineManagment" element={<OutlineManagment />} />
           </Route>
           <Route element={<AdminWrapper />}>
             <Route path="/manageCourses" element={<ManageCourses />} />
