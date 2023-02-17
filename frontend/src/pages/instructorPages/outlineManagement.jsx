@@ -3,7 +3,7 @@ import user from "../../user";
 import OutlineSelector from "../../components/outlineManagment/outlineSelector";
 import axios from "axios";
 
-const OutlineManagment = () => {
+const OutlineManagement = () => {
 
     const [outlines, setOutlines] = useState([]);
 
@@ -28,4 +28,4 @@ const OutlineManagment = () => {
     );
 }
 
-export default OutlineManagment;
+export default OutlineManagement;
