@@ -63,7 +63,7 @@ const Counter = ({ sectionLabel, outlineID }) => {
             <button className="counter-button" onClick={handleDecrement}>-</button>
             <span className="counter-value">{count}</span>
             <button className="counter-button" onClick={handleIncrement}>+</button>
-            <p>Last Edited: {lastMod ? lastMod.authorID + " " + moment(lastMod.dateTime).format("YYYY-MM-DD HH:mm:ss") : ""}</p>
+            <p id='lastEdit'>Last Edited: {lastMod ? lastMod.authorID + " " + moment(lastMod.dateTime).format("YYYY-MM-DD HH:mm:ss") : ""}</p>
             {editing && (
                 <div>
                     <button className="save" onClick={handleSave}>Save</button>

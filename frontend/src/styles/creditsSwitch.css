@@ -21,6 +21,6 @@
     font-weight: bold;
 }
 
-p {
+p#lastEdit {
     display: inline-block;
 }

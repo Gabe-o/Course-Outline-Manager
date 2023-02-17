@@ -48,7 +48,7 @@ const CreditSwitch = ({ sectionLabel, outlineID }) => {
             >
                 1
             </button>
-            <p>Last Edited: {lastMod ? lastMod.authorID + " " + moment(lastMod.dateTime).format("YYYY-MM-DD HH:mm:ss") : ""}</p>
+            <p id='lastEdit'>Last Edited: {lastMod ? lastMod.authorID + " " + moment(lastMod.dateTime).format("YYYY-MM-DD HH:mm:ss") : ""}</p>
             {selectedValue && (
                 <div className="selected-value">Selected value: {selectedValue}</div>
             )}

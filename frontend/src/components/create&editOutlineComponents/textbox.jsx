@@ -54,7 +54,7 @@ const Textbox = ({ defaultValue, sectionLabel, outlineID }) => {
             {!editing && (
                 <div id="editBtn">
                     <button className="edit" onClick={handleEdit}>Edit</button>
-                    <p>Last Edited: {lastMod ? lastMod.authorID + " " + moment(lastMod.dateTime).format("YYYY-MM-DD HH:mm:ss") : ""}</p>
+                    <p id='lastEdit'>Last Edited: {lastMod ? lastMod.authorID + " " + moment(lastMod.dateTime).format("YYYY-MM-DD HH:mm:ss") : ""}</p>
                 </div>
             )}
             {editing && (

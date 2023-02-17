@@ -25,7 +25,7 @@
     background-color: grey;
 }
 
-p {
+p#lastEdit {
     margin-left: 1vw;
     display: inline-block;
 }

@@ -72,7 +72,7 @@ div#editBtn button {
     display: inline-block;
 }
 
-div#editBtn p {
+div#editBtn p#lastEdit {
     margin-left: 1vw;
     display: inline-block;
 }

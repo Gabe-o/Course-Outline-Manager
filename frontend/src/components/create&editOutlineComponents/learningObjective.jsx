@@ -82,7 +82,7 @@ const LearningObjective = ({ objective, sectionLabel, outlineID }) => {
                         <button className="edit" onClick={handleEdit}>Edit</button>
                     </>
             }
-            <p>Last Edited: {lastMod ? lastMod.authorID + " " + moment(lastMod.dateTime).format("YYYY-MM-DD HH:mm:ss") : ""}</p>
+            <p id='lastEdit'>Last Edited: {lastMod ? lastMod.authorID + " " + moment(lastMod.dateTime).format("YYYY-MM-DD HH:mm:ss") : ""}</p>
         </>
     );
 };
