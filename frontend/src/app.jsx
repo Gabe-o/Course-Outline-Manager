@@ -6,13 +6,10 @@ import Login from "./pages/defaultPages/login";
 import Register from "./pages/defaultPages/register";
 import ManageCourses from './pages/adminPages/manageCourses';
 import AdminWrapper from './components/wrappers/adminWrapper';
-<<<<<<< HEAD
-=======
 import Navbar from './components/ui/navbar';
 import AuthContext from './components/misc/authContext';
 import InstructorWrapper from './components/wrappers/instructorWrapper';
 import ReviewerWrapper from './components/wrappers/reviewerWrapper';
->>>>>>> main
 import OutlineManagment from './pages/instructorPages/outlineManagment';
 
 function App() {
@@ -21,20 +18,6 @@ function App() {
 
   return (
     <BrowserRouter>
-<<<<<<< HEAD
-      <Routes>
-        <Route path="" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/createOutline" element={<CreateOutline />} />
-        <Route path="/outlineManagement" element={<OutlineManagment />} />
-        <Route element={<AdminWrapper />}>
-          <Route path="/manageCourses" element={<ManageCourses />} />
-        </Route>
-      </Routes>
-
-=======
       <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
         {window.location.pathname.toString() !== "/login" && window.location.pathname.toString() !== "/register" ? <Navbar /> : null}
         <Routes>
@@ -44,7 +27,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route element={<InstructorWrapper />}>
             <Route path="/createOutline" element={<CreateOutline />} />
-            <Route path="/outlineManagment" element={<OutlineManagment />} />
+            <Route path="/outlineManagement" element={<OutlineManagment />} />
           </Route>
           <Route element={<AdminWrapper />}>
             <Route path="/manageCourses" element={<ManageCourses />} />
@@ -53,7 +36,6 @@ function App() {
           </Route>
         </Routes>
       </AuthContext.Provider>
->>>>>>> main
     </BrowserRouter>
   );
 }
