@@ -37,9 +37,8 @@ const TopicCreator = ({ sectionLabel, outlineID }) => {
         setTopics([...topics, value]);
         setValue("");
 
-        console.log(sectionLabel + " " + JSON.stringify([...topics, value]) + " " + moment().format("YYYY-MM-DD hh:mm:ss"));
         axios.post("http://localhost:9000/api/modification", {
-            dateTime: moment().format("YYYY-MM-DD hh:mm:ss"),
+            dateTime: moment().format("YYYY-MM-DD HH:mm:ss"),
             section: sectionLabel,
             content: JSON.stringify([...topics, value]),
             comment: null,
