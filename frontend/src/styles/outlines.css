@@ -1,0 +1,72 @@
+.page {
+    background-color: #3f2b96;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .document-list {
+    background-color: #ddd;
+    width: 80%;
+    max-width: 800px;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .document {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .document-info {
+    flex-grow: 1;
+  }
+  
+  .document-name {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .document-creator {
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .document-last-modified {
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .document-actions {
+    display: flex;
+  }
+  
+  .edit-button, .approve-button, .delete-button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .edit-button {
+    background-color: #007bff;
+    color: white;
+    margin-right: 10px;
+  }
+  
+  .approve-button {
+    background-color: #28a745;
+    color: white;
+    margin-right: 10px;
+  }
+  
+  .delete-button {
+    background-color: #dc3545;
+    color: white;
+  }
+  

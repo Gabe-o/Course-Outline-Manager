@@ -11,6 +11,7 @@ import AuthContext from './components/misc/authContext';
 import InstructorWrapper from './components/wrappers/instructorWrapper';
 import ReviewerWrapper from './components/wrappers/reviewerWrapper';
 import OutlineManagment from './pages/instructorPages/outlineManagment';
+import DocumentListPage from './pages/adminPages/outlinePage';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/outlines" element={<DocumentListPage />} />
           <Route element={<InstructorWrapper />}>
             <Route path="/createOutline" element={<CreateOutline />} />
             <Route path="/outlineManagment" element={<OutlineManagment />} />
