@@ -30,9 +30,8 @@ const Textbox = ({ defaultValue, sectionLabel, outlineID }) => {
         setEditing(false);
         setOriginalValue(value);
 
-        console.log(sectionLabel + " " + value + " " + moment().format("YYYY-MM-DD hh:mm:ss"));
         axios.post("http://localhost:9000/api/modification", {
-            dateTime: moment().format("YYYY-MM-DD hh:mm:ss"),
+            dateTime: moment().format("YYYY-MM-DD HH:mm:ss"),
             section: sectionLabel,
             content: value,
             comment: null,
@@ -55,7 +54,7 @@ const Textbox = ({ defaultValue, sectionLabel, outlineID }) => {
             {!editing && (
                 <div id="editBtn">
                     <button className="edit" onClick={handleEdit}>Edit</button>
-                    <p>Last Edited: {lastMod ? lastMod.authorID + " " + moment(Date(lastMod.dateTime)).format("YYYY-MM-DD hh:mm:ss") : ""}</p>
+                    <p>Last Edited: {lastMod ? lastMod.authorID + " " + moment(lastMod.dateTime).format("YYYY-MM-DD HH:mm:ss") : ""}</p>
                 </div>
             )}
             {editing && (

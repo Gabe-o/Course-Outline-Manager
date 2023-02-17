@@ -24,3 +24,8 @@
     vertical-align: middle;
     background-color: grey;
 }
+
+p {
+    margin-left: 1vw;
+    display: inline-block;
+}
