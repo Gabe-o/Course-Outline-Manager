@@ -1,0 +1,25 @@
+ul#outline {
+    margin: 10px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    width: 100%;
+    height: 10vh;
+    background-color: gainsboro;
+}
+
+li {
+    list-style-type: none;
+    float: left;
+    font-size: 20px;
+}
+
+li#courseID {
+    padding: 3vh 3%
+}
+
+li#term {
+    padding: 3vh 3%;
+}
+
+li#status {
+    padding: 3vh 6%;
+}

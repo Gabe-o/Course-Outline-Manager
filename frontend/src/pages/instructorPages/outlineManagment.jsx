@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import user from "../../user";
-import Outline from "../../components/outlineManagment/outline";
+import OutlineSelector from "../../components/outlineManagment/outlineSelector";
 import axios from "axios";
 
 const OutlineManagment = () => {
 
-    const [serverFinished, setServerFinished] = useState(false);
     const [outlines, setOutlines] = useState([]);
 
     useEffect(() => {
@@ -14,23 +13,16 @@ const OutlineManagment = () => {
                 setOutlines(res.data);
             })
             .catch(err => {
-                alert(JSON.stringify(err));
+                if (err.response.status !== 404) {
+                    alert(JSON.stringify(err.response.data));
+                }
             })
     }, []);
-
-    const newOutline = () => {
-
-    }
-
-
 
     return (
         <>
             <div>
-                <button>New</button>
-            </div>
-            <div>
-                {outlines ? outlines.map((outline) => <Outline courseID={outline.courseID} term={outline.term} status={outline.status} />) : ""}
+                {outlines.length > 0 ? outlines.map((outline) => <OutlineSelector outlineID={outline.outlineID} courseID={outline.courseID} term={outline.term} status={outline.status} />) : <p>You have no currently assigned outlines</p>}
             </div>
         </>
     );

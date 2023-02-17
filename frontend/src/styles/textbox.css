@@ -66,3 +66,13 @@
     background-color: lightgreen;
     border: 1px solid lightgreen;
 }
+
+div#editBtn button {
+    clear: left;
+    display: inline-block;
+}
+
+div#editBtn p {
+    margin-left: 1vw;
+    display: inline-block;
+}

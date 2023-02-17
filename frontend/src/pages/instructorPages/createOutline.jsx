@@ -6,18 +6,17 @@ import LearningObjectivesDropdown from "../../components/create&editOutlineCompo
 import TopicCreator from "../../components/create&editOutlineComponents/topicCreator";
 import Evaluation from "../../components/create&editOutlineComponents/evaluation";
 import LearningObjective from "../../components/create&editOutlineComponents/learningObjective";
+import { useLocation } from "react-router-dom";
 
 const CreateOutline = () => {
 
-    const getEmail = () => {
-
-    }
+    const location = useLocation();
 
     return (
         <div>
             <h1></h1>
             <h1>Description</h1>
-            <Textbox sectionLabel={"Description"} />
+            <Textbox sectionLabel={"Description"} outlineID={location.state} />
             <h1>Instructor</h1>
             <h3>Name</h3>
             <Textbox sectionLabel={"InstructorName"} />

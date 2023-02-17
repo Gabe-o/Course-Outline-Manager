@@ -1,13 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import cookies from "js-cookie";
 import moment from "moment";
 import axios from "axios";
 import "../../styles/textbox.css";
 
-const Textbox = ({ defaultValue, sectionLabel }) => {
+const Textbox = ({ defaultValue, sectionLabel, outlineID }) => {
     const [value, setValue] = useState(defaultValue);
     const [editing, setEditing] = useState(false);
     const [originalValue, setOriginalValue] = useState(defaultValue);
+    const [lastMod, setLastMod] = useState();
+
+    useEffect(() => {
+        axios.get("http://localhost:9000/api/modification?outlineID=" + outlineID + "&section=" + sectionLabel + "&newest=true", { headers: { "token": cookies.get("jwt") } })
+            .then(res => {
+                setLastMod(res.data[0]);
+                setValue(res.data[0].content);
+                setOriginalValue(res.data[0].content);
+            })
+            .catch(err => {
+
+            })
+    }, [originalValue]);
 
     const handleEdit = () => {
         setEditing(true);
@@ -23,7 +36,7 @@ const Textbox = ({ defaultValue, sectionLabel }) => {
             section: sectionLabel,
             content: value,
             comment: null,
-            outlineID: 0,
+            outlineID: outlineID,
         }, { headers: { "Content-Type": "application/json", "token": cookies.get("jwt") } })
             .catch(err => {
                 alert(JSON.stringify(err.response.data));
@@ -37,9 +50,13 @@ const Textbox = ({ defaultValue, sectionLabel }) => {
 
     return (
         <div>
-            {!editing && <p>{value}</p>}
+            {!editing && <p>{value}</p>
+            }
             {!editing && (
-                <button className="edit" onClick={handleEdit}>Edit</button>
+                <div id="editBtn">
+                    <button className="edit" onClick={handleEdit}>Edit</button>
+                    <p>Last Edited: {lastMod ? lastMod.authorID + " " + moment(Date(lastMod.dateTime)).format("YYYY-MM-DD hh:mm:ss") : ""}</p>
+                </div>
             )}
             {editing && (
                 <div>
