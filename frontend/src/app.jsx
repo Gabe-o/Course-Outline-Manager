@@ -10,7 +10,7 @@ import Navbar from './components/ui/navbar';
 import AuthContext from './components/misc/authContext';
 import InstructorWrapper from './components/wrappers/instructorWrapper';
 import ReviewerWrapper from './components/wrappers/reviewerWrapper';
-import OutlineManagment from './pages/instructorPages/outlineManagment';
+import OutlineManagement from './pages/instructorPages/outlineManagement';
 
 function App() {
 
@@ -19,15 +19,15 @@ function App() {
   return (
     <BrowserRouter>
       <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
-        {window.location.pathname.toString() !== "/login" && window.location.pathname.toString() !== "/register" ? <Navbar /> : null}
+        {window.location.pathname.toString() !== "/login" && window.location.pathname.toString() !== "/register" && window.location.pathname.toString() !== "/" ? <Navbar /> : null}
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="" element={<Home />} />
+          <Route path="" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route element={<InstructorWrapper />}>
             <Route path="/createOutline" element={<CreateOutline />} />
-            <Route path="/outlineManagment" element={<OutlineManagment />} />
+            <Route path="/outlineManagement" element={<OutlineManagement />} />
           </Route>
           <Route element={<AdminWrapper />}>
             <Route path="/manageCourses" element={<ManageCourses />} />

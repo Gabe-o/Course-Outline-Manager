@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import cookies from "js-cookie";
 import moment from 'moment';
@@ -6,7 +6,7 @@ import EvaluationDescription from "./evalutationDescription";
 
 const evaluations = ["Homework Assignments", "Quizzes", "Laboratory", "Midterm Test", "Final Examinations"];
 
-const Evaluation = ({ sectionLabel }) => {
+const Evaluation = ({ sectionLabel, outlineID }) => {
 
     const [options, setOptions] = useState(evaluations);
     const [showTextbox, setShowTextbox] = useState(false);
@@ -18,6 +18,18 @@ const Evaluation = ({ sectionLabel }) => {
     const [evaluation, setEvaluation] = useState("Homework Assignments");
     const [weight, setWeight] = useState("0");
     const [breakdown, setBreakdown] = useState([]);
+    const [lastMod, setLastMod] = useState();
+
+    useEffect(() => {
+        axios.get("http://localhost:9000/api/modification?outlineID=" + outlineID + "&section=" + sectionLabel + "&newest=true", { headers: { "token": cookies.get("jwt") } })
+            .then(res => {
+                setLastMod(res.data[0]);
+                setBreakdown(JSON.parse(res.data[0].content));
+            })
+            .catch(err => {
+
+            })
+    }, [addSection]);
 
     const handleAddOption = () => {
         setShowTextbox(true);
@@ -60,16 +72,20 @@ const Evaluation = ({ sectionLabel }) => {
     }
 
     const handleRemoveSection = (section) => {
+        setAddSection(true);
         setBreakdown(breakdown.filter((e) => e !== section));
 
-        console.log(sectionLabel + " " + JSON.stringify(breakdown.filter((e) => e !== section)) + " " + moment().format("YYYY-MM-DD hh:mm:ss")); // Updated mark breakdown
+        // Updated mark breakdown
         axios.post("http://localhost:9000/api/modification", {
-            dateTime: moment().format("YYYY-MM-DD hh:mm:ss"),
+            dateTime: moment().format("YYYY-MM-DD HH:mm:ss"),
             section: sectionLabel,
             content: JSON.stringify(breakdown.filter((e) => e !== section)),
             comment: null,
-            outlineID: 0,
+            outlineID: outlineID,
         }, { headers: { "Content-Type": "application/json", "token": cookies.get("jwt") } })
+            .then(res => {
+                setAddSection(false);
+            })
             .catch(err => {
                 alert(JSON.stringify(err.response.data));
             });
@@ -86,13 +102,12 @@ const Evaluation = ({ sectionLabel }) => {
         setWeight("0");
         setEvaluation("Homework Assignments");
 
-        console.log(sectionLabel + " " + JSON.stringify(breakdown) + " " + moment().format("YYYY-MM-DD hh:mm:ss")); // Updated mark breakdown
         axios.post("http://localhost:9000/api/modification", {
-            dateTime: moment().format("YYYY-MM-DD hh:mm:ss"),
+            dateTime: moment().format("YYYY-MM-DD HH:mm:ss"),
             section: sectionLabel,
             content: JSON.stringify(breakdown),
             comment: null,
-            outlineID: 0,
+            outlineID: outlineID,
         }, { headers: { "Content-Type": "application/json", "token": cookies.get("jwt") } })
             .catch(err => {
                 alert(JSON.stringify(err.response.data));
@@ -138,6 +153,7 @@ const Evaluation = ({ sectionLabel }) => {
             )}
 
             <button onClick={handleAddSection}>Add Weight</button>
+            <p id='lastEdit'>Last Edited: {lastMod ? lastMod.authorID + " " + moment(lastMod.dateTime).format("YYYY-MM-DD HH:mm:ss") : ""}</p>
             {addSection ? <div>
                 <select value={evaluation} onChange={(event) => setEvaluation(event.target.value)}>
                     {options.map((option) => (
@@ -152,7 +168,7 @@ const Evaluation = ({ sectionLabel }) => {
 
             <h3>Evaluations Descriptions</h3>
 
-            {options.map((option, i) => (<EvaluationDescription evaluation={option} sectionLabel={sectionLabel + " " + option} key={i} />))}
+            {options.map((option, i) => (<EvaluationDescription evaluation={option} sectionLabel={sectionLabel + " " + option} outlineID={outlineID} key={i} />))}
 
         </div>
     )
