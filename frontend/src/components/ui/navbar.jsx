@@ -39,8 +39,8 @@ const Navbar = () => {
 
     const handleOptionChange = (event) => {
         switch (event.target.value) {
-            case 'Create Outline':
-                navigate("/createOutline");
+            case 'Your Outlines':
+                navigate("/outlineManagement");
                 break;
             case 'Edit Outline':
                 break;
@@ -69,8 +69,7 @@ const Navbar = () => {
                 <div>
                     <select value={selectedOption} onChange={handleOptionChange}>
                         <option value="" disabled hidden>Outlines</option>
-                        <option value="Create Outline">Create Outline</option>
-                        <option value="Edit Outline">Edit Outline</option>
+                        <option value="Your Outlines">Your Outline</option>
                         <option value="View Outlines">View Outlines</option>
                     </select>
                 </div>

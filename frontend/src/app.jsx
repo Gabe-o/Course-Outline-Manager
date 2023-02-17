@@ -20,16 +20,16 @@ function App() {
   return (
     <BrowserRouter>
       <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
-        {window.location.pathname.toString() !== "/login" && window.location.pathname.toString() !== "/register" ? <Navbar /> : null}
+        {window.location.pathname.toString() !== "/login" && window.location.pathname.toString() !== "/register" && window.location.pathname.toString() !== "/" ? <Navbar /> : null}
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="" element={<Home />} />
+          <Route path="" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/outlines" element={<DocumentListPage />} />
           <Route element={<InstructorWrapper />}>
             <Route path="/createOutline" element={<CreateOutline />} />
-            <Route path="/outlineManagment" element={<OutlineManagment />} />
+            <Route path="/outlineManagement" element={<OutlineManagement />} />
           </Route>
           <Route element={<AdminWrapper />}>
             <Route path="/manageCourses" element={<ManageCourses />} />

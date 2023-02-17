@@ -44,21 +44,44 @@ modificationRouter.post("", (req, res) => {
 
 // Get all changes for an outline
 modificationRouter.get("", (req, res) => {
-    db.query(`SELECT * FROM modification WHERE outlineID=?;`,
-        [
-            req.query.outlineID
-        ],
-        (err, data) => {
-            if (err) {
-                res.status(400).json(err);
-            }
-            else if (data.length === 0) {
-                res.status(404).json("outlineID: '" + req.query.outlineID + "' not found");
-            }
-            else {
-                res.json(data);
-            }
-        })
+    if (req.query.newest === "true") {
+        db.query(`SELECT * FROM modification WHERE outlineID=? AND section=? AND dateTime=(SELECT MAX(dateTime) FROM modification WHERE outlineID=? AND section=?);`,
+            [
+                req.query.outlineID,
+                req.query.section,
+                req.query.outlineID,
+                req.query.section,
+            ],
+            (err, data) => {
+                if (err) {
+                    res.status(400).json(err);
+                }
+                else if (data.length === 0) {
+                    res.status(404).json("outlineID: '" + req.query.outlineID + "' not found");
+                }
+                else {
+                    res.json(data);
+                }
+            });
+    }
+    else {
+        db.query(`SELECT * FROM modification WHERE outlineID=? AND section=?;`,
+            [
+                req.query.outlineID,
+                req.query.section
+            ],
+            (err, data) => {
+                if (err) {
+                    res.status(400).json(err);
+                }
+                else if (data.length === 0) {
+                    res.status(404).json("outlineID: '" + req.query.outlineID + "' not found");
+                }
+                else {
+                    res.json(data);
+                }
+            });
+    }
 });
 
 export default modificationRouter;
