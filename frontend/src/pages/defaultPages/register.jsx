@@ -39,7 +39,7 @@ const Register = () => {
     };
 
     const handleLoginClick = () => {
-        navigate("/");
+        navigate("/login");
     };
 
     return (
