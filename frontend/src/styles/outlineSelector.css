@@ -6,20 +6,20 @@ ul#outline {
     background-color: gainsboro;
 }
 
-li {
+ul#outline li {
     list-style-type: none;
     float: left;
     font-size: 20px;
 }
 
-li#courseID {
+ul#outline li#courseID {
     padding: 3vh 3%
 }
 
-li#term {
+ul#outline li#term {
     padding: 3vh 3%;
 }
 
-li#status {
+ul#outline li#status {
     padding: 3vh 6%;
 }
