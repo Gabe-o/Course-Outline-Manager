@@ -5,6 +5,7 @@ import Login from "./pages/defaultPages/login";
 import Register from "./pages/defaultPages/register";
 import ManageCourses from './pages/adminPages/manageCourses';
 import AdminWrapper from './components/wrappers/adminWrapper';
+import OutlineManagment from './pages/instructorPages/outlineManagment';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/createOutline" element={<CreateOutline />} />
+        <Route path="/outlineManagement" element={<OutlineManagment />} />
         <Route element={<AdminWrapper />}>
           <Route path="/manageCourses" element={<ManageCourses />} />
         </Route>
