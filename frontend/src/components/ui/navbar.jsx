@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
+import CreateCoursePopup from './createCoursePopup';
+import AssignInstructorPopup from './assignInstructorPopup';
 import AuthContext from '../misc/authContext';
 import cookies from "js-cookie";
 import axios from 'axios';
@@ -9,7 +11,10 @@ import '../../styles/navbar.css';
 
 const Navbar = () => {
 
-    const [selectedOption, setSelectedOption] = useState('');
+    const [instructorSelectedOption, setInstructorSelectedOption] = useState('');
+    const [administratorSelectedOption, setAdministratorSelectedOption] = useState('');
+    const [showCoursePopup, setShowCoursePopup] = useState(false);
+    const [showAssignInstructorPopup, setShowAssignInstructorPopup] = useState(false);
     const { authenticated, setAuthenticated } = useContext(AuthContext);
     const [username, setUsername] = useState("");
     const [role, setRole] = useState("");
@@ -37,7 +42,7 @@ const Navbar = () => {
             });
     }, [authenticated]);
 
-    const handleOptionChange = (event) => {
+    const handleInstructorOptionChange = (event) => {
         switch (event.target.value) {
             case 'Your Outlines':
                 navigate("/outlineManagement");
@@ -45,6 +50,19 @@ const Navbar = () => {
             case 'Edit Outline':
                 break;
             case 'View Outlines':
+                break;
+            default:
+                break;
+        }
+    };
+
+    const handleAdministratorOptionChange = (event) => {
+        switch (event.target.value) {
+            case 'Add Course':
+                setShowCoursePopup(true);
+                break;
+            case 'Assign Instructor':
+                setShowAssignInstructorPopup(true);
                 break;
             default:
                 break;
@@ -67,7 +85,7 @@ const Navbar = () => {
         if (role === "instructor") {
             return (
                 <div>
-                    <select value={selectedOption} onChange={handleOptionChange}>
+                    <select value={instructorSelectedOption} onChange={handleInstructorOptionChange}>
                         <option value="" disabled hidden>Outlines</option>
                         <option value="Your Outlines">Your Outline</option>
                         <option value="View Outlines">View Outlines</option>
@@ -78,7 +96,11 @@ const Navbar = () => {
         else if (role === "administrator") {
             return (
                 <div>
-                    <button>Admin TO DO</button>
+                    <select value={administratorSelectedOption} onChange={handleAdministratorOptionChange}>
+                        <option value="" disabled hidden>Courses</option>
+                        <option value="Add Course">Add Course</option>
+                        <option value="Assign Instructor">Assign Instructor to Course</option>
+                    </select>
                 </div>
             );
         }
@@ -95,22 +117,26 @@ const Navbar = () => {
     }
 
     return (
-        <div className="navbar-container">
-            <div>
-                <h1>Western ECE Outline Management</h1>
+        <div>
+            <div className="navbar-container">
+                <div>
+                    <h1>Western ECE Outline Management</h1>
+                </div>
+                {navBarContents()}
+                <div>
+                    {authenticated ?
+                        <div>
+                            <p>{username + " (" + role + ")"}</p>
+                            <button onClick={handleLogout}>Logout</button>
+                        </div> :
+                        <div>
+                            <p>Guest</p>
+                            <button onClick={handleLogin}>Login</button>
+                        </div>}
+                </div>
             </div>
-            {navBarContents()}
-            <div>
-                {authenticated ?
-                    <div>
-                        <p>{username + " (" + role + ")"}</p>
-                        <button onClick={handleLogout}>Logout</button>
-                    </div> :
-                    <div>
-                        <p>Guest</p>
-                        <button onClick={handleLogin}>Login</button>
-                    </div>}
-            </div>
+            {showCoursePopup ? <CreateCoursePopup showCoursePopup={showCoursePopup} setShowCoursePopup={setShowCoursePopup} /> : null}
+            {showAssignInstructorPopup ? <AssignInstructorPopup showAssignInstructorPopup={showAssignInstructorPopup} setShowAssignInstructorPopup={setShowAssignInstructorPopup} /> : null}
         </div>
     );
 };

@@ -24,21 +24,27 @@ userCourseRouter.use((req, res, next) => {
     });
 });
 
-// Adds that given user to db
 userCourseRouter.post("", (req, res) => {
-    db.query("INSERT INTO user_course_assignment VALUES (?, ?);",
-        [
-            req.body.userID,
-            req.body.courseID
-        ],
-        (err, data) => {
-            if (err) {
-                res.status(400).json(err);
-            }
-            else {
-                res.json(data);
-            }
-        })
+    console.log("Entered");
+    db.query("INSERT INTO user_course_assignment VALUES (?, ?, ?);", [req.body.userID, req.body.courseID, req.body.term], (err) => {
+        if (err) {
+            res.status(400).json(err);
+        }
+        else {
+            res.json("Succesfully inserted");
+        }
+    })
+});
+
+userCourseRouter.delete("", (req, res) => {
+    db.query("DELETE FROM user_course_assignment WHERE userID=? AND courseID=? AND term=?;", [req.body.userID, req.body.courseID, req.body.term], (err) => {
+        if (err) {
+            res.status(400).json(err);
+        }
+        else {
+            res.json("Succesfully deleted");
+        }
+    });
 });
 
 export default userCourseRouter;
