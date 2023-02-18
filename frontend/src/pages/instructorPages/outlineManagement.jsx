@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import user from "../../user";
-import OutlineSelector from "../../components/outlineManagment/outlineSelector";
+import Outlines from "../../pages/adminPages/outlines.jsx";
 import axios from "axios";
+import "../../styles/outlines.css";
 
 const OutlineManagement = () => {
 
@@ -21,8 +22,12 @@ const OutlineManagement = () => {
 
     return (
         <>
-            <div>
-                {outlines.length > 0 ? outlines.map((outline) => <OutlineSelector outlineID={outline.outlineID} courseID={outline.courseID} term={outline.term} status={outline.status} />) : <p>You have no currently assigned outlines</p>}
+            <div className="page">
+                <div className="document-list">
+                    {outlines.length > 0 ? outlines.map((outline, index) => (
+                        <Outlines key={index} outlineID={outline.outlineID} courseID={outline.courseID} term={outline.term} status={outline.status} />
+                    )) : <p>You have no currently assigned outlines</p>}
+                </div>
             </div>
         </>
     );

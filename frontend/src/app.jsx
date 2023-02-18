@@ -10,8 +10,8 @@ import Navbar from './components/ui/navbar';
 import AuthContext from './components/misc/authContext';
 import InstructorWrapper from './components/wrappers/instructorWrapper';
 import ReviewerWrapper from './components/wrappers/reviewerWrapper';
-import OutlineManagment from './pages/instructorPages/outlineManagment';
-import DocumentListPage from './pages/adminPages/outlinePage';
+import OutlineManagement from './pages/instructorPages/outlineManagement';
+import DocumentListPage from './components/outlineManagement/outlinePage';
 
 function App() {
 
