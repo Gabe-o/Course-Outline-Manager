@@ -1,8 +1,26 @@
 import express from 'express';
 import db from '../DBConnect.js';
+import jwt from 'jsonwebtoken';
 
 const outlineRouter = express.Router();
 
+outlineRouter.use((req, res, next) => {
+    const token = req.headers.token;
+    if (!token) {
+        return next();
+    }
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(401).json("Invalid token");
+        }
+        else {
+            req.user = decoded;
+            next();
+        }
+
+    });
+});
 // Get outlines that match query
 outlineRouter.get("", (req, res) => {
     // Get all outlines when query is undefined
@@ -44,14 +62,8 @@ outlineRouter.get("", (req, res) => {
 
 // Add a new outline
 outlineRouter.post("", (req, res) => {
-    db.query(`INSERT INTO outline (dateApproved, status, courseID, term) VALUES (?, ?, ?, ?);`,
-        [
-            req.body.dateApproved,
-            req.body.status,
-            req.body.courseID,
-            req.body.term
-        ],
-        (err, data) => {
+    if (req.user.administrator === 1) {
+        db.query("INSERT INTO outline (dateApproved, status, courseID, term) VALUES (?, ?, ?, ?);", [req.body.dateApproved, req.body.status, req.body.courseID, req.body.term], (err, data) => {
             if (err) {
                 res.status(400).json(err);
             }
@@ -59,6 +71,11 @@ outlineRouter.post("", (req, res) => {
                 res.json(data);
             }
         })
+    }
+    else {
+        res.status(403).json("Access denied")
+    }
+
 });
 
 // Update outline with given id

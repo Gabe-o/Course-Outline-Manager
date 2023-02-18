@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import CreateCoursePopup from './createCoursePopup';
+import AssignInstructorPopup from './assignInstructorPopup';
 import AuthContext from '../misc/authContext';
 import cookies from "js-cookie";
 import axios from 'axios';
@@ -13,6 +14,7 @@ const Navbar = () => {
     const [instructorSelectedOption, setInstructorSelectedOption] = useState('');
     const [administratorSelectedOption, setAdministratorSelectedOption] = useState('');
     const [showCoursePopup, setShowCoursePopup] = useState(false);
+    const [showAssignInstructorPopup, setShowAssignInstructorPopup] = useState(false);
     const { authenticated, setAuthenticated } = useContext(AuthContext);
     const [username, setUsername] = useState("");
     const [role, setRole] = useState("");
@@ -59,6 +61,7 @@ const Navbar = () => {
                 setShowCoursePopup(true);
                 break;
             case 'Assign Instructor':
+                setShowAssignInstructorPopup(true);
                 break;
             default:
                 break;
@@ -133,6 +136,7 @@ const Navbar = () => {
                 </div>
             </div>
             {showCoursePopup ? <CreateCoursePopup showCoursePopup={showCoursePopup} setShowCoursePopup={setShowCoursePopup} /> : null}
+            {showAssignInstructorPopup ? <AssignInstructorPopup showAssignInstructorPopup={showAssignInstructorPopup} setShowAssignInstructorPopup={setShowAssignInstructorPopup} /> : null}
         </div>
     );
 };

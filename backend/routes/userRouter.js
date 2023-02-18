@@ -1,6 +1,6 @@
 
 import { auth } from "../firebase.js";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import express from 'express';
 import 'dotenv/config';
 import db from '../DBConnect.js';
@@ -8,14 +8,27 @@ import jwt from "jsonwebtoken";
 
 const userRouter = express.Router();
 
-// Gets user information with the given username
-userRouter.get("/:userID", (req, res) => {
-    db.query("SELECT * FROM user WHERE userID=?;", [req.params.userID], (err, data) => {
+userRouter.get("/instructors", (req, res) => {
+    db.query("SELECT * FROM user WHERE instructor=1;", (err, data) => {
         if (err) {
             res.status(400).json(err);
         }
         else if (data.length === 0) {
-            res.status(404).json("userID: '" + req.params.userID + "' not found");
+            res.status(404).json("No instructors found!");
+        }
+        else {
+            res.json(data);
+        }
+    });
+});
+
+userRouter.get("/reviewers", (req, res) => {
+    db.query("SELECT * FROM user WHERE reviewer=1;", (err, data) => {
+        if (err) {
+            res.status(400).json(err);
+        }
+        else if (data.length === 0) {
+            res.status(404).json("No reviewers found!");
         }
         else {
             res.json(data);
@@ -33,7 +46,7 @@ userRouter.post("/register", (req, res) => {
     if (req.body.administrator || req.body.instructor || req.body.reviewer) {
         db.query("INSERT INTO user VALUES (?, ?, ?, ?, ?);", [req.body.email.split("@")[0], req.body.email, req.body.administrator, req.body.instructor, req.body.reviewer], (err, data) => {
             if (err) {
-                res.status(500).json(err);
+                res.status(400).json(err);
                 return;
             }
             else {
