@@ -21,7 +21,7 @@ const Counter = ({ sectionLabel, outlineID }) => {
             .catch(err => {
 
             })
-    }, [originalCount]);
+    }, [editing]);
 
     const handleIncrement = () => {
         if (count < 3) {
@@ -38,9 +38,6 @@ const Counter = ({ sectionLabel, outlineID }) => {
     };
 
     const handleSave = () => {
-        setEditing(false);
-        setOriginalCount(count);
-
         axios.post("http://localhost:9000/api/modification", {
             dateTime: moment().format("YYYY-MM-DD HH:mm:ss"),
             section: sectionLabel,
@@ -48,6 +45,10 @@ const Counter = ({ sectionLabel, outlineID }) => {
             comment: null,
             outlineID: outlineID,
         }, { headers: { "Content-Type": "application/json", "token": cookies.get("jwt") } })
+            .then(res => {
+                setEditing(false);
+                setOriginalCount(count);
+            })
             .catch(err => {
                 alert(JSON.stringify(err.response.data));
             });

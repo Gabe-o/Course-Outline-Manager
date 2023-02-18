@@ -1,6 +1,6 @@
 import React from "react";
 import "../../styles/outlines.css";
-import Outlines from "./outlines.jsx";
+import Outlines from "../../pages/adminPages/outlines.jsx";
 
 const Outlinepage = () => {
     const documents = [

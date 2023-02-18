@@ -2,7 +2,6 @@ import { React } from "react";
 import Textbox from "../../components/create&editOutlineComponents/textbox";
 import Counter from "../../components/create&editOutlineComponents/counter";
 import Switch from "../../components/create&editOutlineComponents/creditsSwitch";
-import LearningObjectivesDropdown from "../../components/create&editOutlineComponents/learningObjectivesDropdown";
 import TopicCreator from "../../components/create&editOutlineComponents/topicCreator";
 import Evaluation from "../../components/create&editOutlineComponents/evaluation";
 import LearningObjective from "../../components/create&editOutlineComponents/learningObjective";
