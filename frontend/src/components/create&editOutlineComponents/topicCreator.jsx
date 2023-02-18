@@ -1,16 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import axios from "axios";
 import cookies from "js-cookie";
 import Topic from './topic';
 
-const TopicCreator = ({ sectionLabel }) => {
+const TopicCreator = ({ sectionLabel, outlineID }) => {
 
     const [value, setValue] = useState("");
     const [topics, setTopics] = useState([]);
     const [addingTopic, setAddingTopic] = useState(false);
     const [savingTopic, setSavingTopic] = useState(false);
     const [cancellingTopic, setCancellingTopic] = useState(false);
+    const [lastMod, setLastMod] = useState();
+
+    useEffect(() => {
+        axios.get("http://localhost:9000/api/modification?outlineID=" + outlineID + "&section=" + sectionLabel + "&newest=true", { headers: { "token": cookies.get("jwt") } })
+            .then(res => {
+                setLastMod(res.data[0]);
+                setTopics(JSON.parse(res.data[0].content));
+            })
+            .catch(err => {
+
+            })
+    }, [addingTopic]);
 
     const addTopic = () => {
         setAddingTopic(true);
@@ -25,13 +37,12 @@ const TopicCreator = ({ sectionLabel }) => {
         setTopics([...topics, value]);
         setValue("");
 
-        console.log(sectionLabel + " " + JSON.stringify([...topics, value]) + " " + moment().format("YYYY-MM-DD hh:mm:ss"));
         axios.post("http://localhost:9000/api/modification", {
-            dateTime: moment().format("YYYY-MM-DD hh:mm:ss"),
+            dateTime: moment().format("YYYY-MM-DD HH:mm:ss"),
             section: sectionLabel,
             content: JSON.stringify([...topics, value]),
             comment: null,
-            outlineID: 0,
+            outlineID: outlineID,
         }, { headers: { "Content-Type": "application/json", "token": cookies.get("jwt") } })
             .catch(err => {
                 alert(JSON.stringify(err.response.data));
@@ -49,8 +60,9 @@ const TopicCreator = ({ sectionLabel }) => {
         <div>
             <h5>Add Topic</h5>
             <button onClick={addTopic}>+</button>
+            <p id='lastEdit'>Last Edited: {lastMod ? lastMod.authorID + " " + moment(lastMod.dateTime).format("YYYY-MM-DD HH:mm:ss") : ""}</p>
             {addingTopic ? <div><input value={value} placeholder="Enter a topic name" onChange={(event) => setValue(event.target.value)} /><button onClick={saveTopic}>Save</button><button onClick={cancelTopic}>Cancel</button></div> : ""}
-            {topics.map((topic, i) => <Topic topic={topic} topicsList={topics} topicsListSetter={setTopics} sectionLabel={sectionLabel + " " + topic} key={i} />)}
+            {topics.map((topic, i) => <Topic topic={topic} topicsList={topics} topicsListSetter={setTopics} setAddingTopic={setAddingTopic} sectionLabel={sectionLabel + " " + topic} outlineID={outlineID} key={i} />)}
         </div>
     );
 };

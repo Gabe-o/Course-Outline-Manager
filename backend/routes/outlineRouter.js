@@ -55,9 +55,7 @@ outlineRouter.get("", (req, res) => {
                     res.json(data);
                 }
             })
-
     }
-
 });
 
 // Add a new outline

@@ -44,7 +44,8 @@ const Navbar = () => {
 
     const handleInstructorOptionChange = (event) => {
         switch (event.target.value) {
-            case 'Create Outline':
+            case 'Your Outlines':
+                navigate("/outlineManagement");
                 break;
             case 'Edit Outline':
                 break;
@@ -86,8 +87,7 @@ const Navbar = () => {
                 <div>
                     <select value={instructorSelectedOption} onChange={handleInstructorOptionChange}>
                         <option value="" disabled hidden>Outlines</option>
-                        <option value="Create Outline">Create Outline</option>
-                        <option value="Edit Outline">Edit Outline</option>
+                        <option value="Your Outlines">Your Outline</option>
                         <option value="View Outlines">View Outlines</option>
                     </select>
                 </div>
