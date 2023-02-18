@@ -17,25 +17,30 @@ const Navbar = () => {
     const [showAssignInstructorPopup, setShowAssignInstructorPopup] = useState(false);
     const { authenticated, setAuthenticated } = useContext(AuthContext);
     const [username, setUsername] = useState("");
-    const [role, setRole] = useState("");
+    const [role, setRole] = useState({});
 
     const navigate = useNavigate();
 
     useEffect(() => {
         axios.get("http://localhost:9000/api/allUsers/info", { headers: { "token": cookies.get("jwt") } })
             .then(res => {
-                console.log("Entered");
+                let role = {
+                    instructor: false,
+                    administrator: false,
+                    reviewer: false
+                }
                 setAuthenticated(true);
                 setUsername(res.data.email.split("@")[0]);
                 if (res.data.instructor === 1) {
-                    setRole("instructor");
+                    role.instructor = true;
                 }
-                else if (res.data.administrator === 1) {
-                    setRole("administrator");
+                if (res.data.administrator === 1) {
+                    role.administrator = true;
                 }
-                else {
-                    setRole("reviewer");
+                if (res.data.reviewer === 1) {
+                    role.reviewer = true;
                 }
+                setRole(role);
             })
             .catch(err => {
                 setAuthenticated(false);
@@ -46,10 +51,6 @@ const Navbar = () => {
         switch (event.target.value) {
             case 'Your Outlines':
                 navigate("/outlineManagement");
-                break;
-            case 'Edit Outline':
-                break;
-            case 'View Outlines':
                 break;
             default:
                 break;
@@ -82,38 +83,63 @@ const Navbar = () => {
     }
 
     const navBarContents = () => {
-        if (role === "instructor") {
-            return (
-                <div>
-                    <select value={instructorSelectedOption} onChange={handleInstructorOptionChange}>
-                        <option value="" disabled hidden>Outlines</option>
-                        <option value="Your Outlines">Your Outline</option>
-                        <option value="View Outlines">View Outlines</option>
-                    </select>
-                </div>
-            );
+        let htmlArray = [];
+        if (role.instructor) {
+            const instructor = <div>
+                <select value={instructorSelectedOption} onChange={handleInstructorOptionChange}>
+                    <option value="" disabled hidden>Outlines</option>
+                    <option value="Your Outlines">Your Outline</option>
+                    <option value="View Outlines">View Outlines</option>
+                </select>
+            </div>
+            htmlArray.push(instructor);
         }
-        else if (role === "administrator") {
-            return (
-                <div>
-                    <select value={administratorSelectedOption} onChange={handleAdministratorOptionChange}>
-                        <option value="" disabled hidden>Courses</option>
-                        <option value="Add Course">Add Course</option>
-                        <option value="Assign Instructor">Assign Instructor to Course</option>
-                    </select>
-                </div>
-            );
+        if (role.administrator) {
+            const administrator = <div>
+                <select value={administratorSelectedOption} onChange={handleAdministratorOptionChange}>
+                    <option value="" disabled hidden>Courses</option>
+                    <option value="Add Course">Add Course</option>
+                    <option value="Assign Instructor">Assign Instructor to Course</option>
+                </select>
+            </div>
+            htmlArray.push(administrator);
+
         }
-        else if (role === "reviewer") {
-            return (
-                <div>
-                    <button>Reviewer TO DO</button>
-                </div>
-            );
+        if (role.reviewer) {
+            const reviewer = <div>
+                <button>Reviewer TO DO</button>
+            </div>
+            htmlArray.push(reviewer);
         }
-        else {
-            return null;
+        const elements = htmlArray.map((element) => {
+            return element;
+        });
+
+        return elements;
+    }
+
+    const displayRoles = () => {
+        let roleArray = [];
+        if (role.instructor) {
+            roleArray.push("instructor");
         }
+        if (role.administrator) {
+
+            roleArray.push("administrator");
+
+        }
+        if (role.reviewer) {
+            roleArray.push("reviewer");
+        }
+        const elements = roleArray.reduce((acc, curr, i) => {
+            if (i === roleArray.length - 1) {
+                return acc + curr; // Don't add comma for the last element
+            } else {
+                return acc + curr + ", "; // Add comma for other elements
+            }
+        }, "");
+
+        return elements;
     }
 
     return (
@@ -126,7 +152,7 @@ const Navbar = () => {
                 <div>
                     {authenticated ?
                         <div>
-                            <p>{username + " (" + role + ")"}</p>
+                            <p>{username + " (" + displayRoles() + ")"}</p>
                             <button onClick={handleLogout}>Logout</button>
                         </div> :
                         <div>
